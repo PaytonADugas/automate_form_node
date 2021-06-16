@@ -1,15 +1,126 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
   <head>
+    <meta charset="utf-8">
+    <title>Student</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Student</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style>
+
+      td{
+        border: 1px solid;
+        padding-right: 40px;
+      }
+      th{
+        border: 1px solid;
+        text-align: center;
+        padding: 10px;
+      }
+      table{
+        margin: auto;
+      }
+      h1{
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+    </style>
+
   </head>
   <body>
-    <h1><%= student.studentId %></h1>
-    <h1><%= student.firstName %></h1>
-    <h1><%= student.lastName %></h1>
+
+    <div style='padding-top: 50px' class="container">
+      <div class="jumbotron">
+        <h1>Form for <%=student.first_name%> <%=student.last_name%></h1>
+        <table>
+          <thead>
+            <th>STUDENT INFORMATION</th>
+            <th>FAMILY INFORMATION: <%= student.school_year %></th>
+          </thead>
+          <tr>
+            <td>
+              <ul style="list-style-type:none">
+                <li><b>Name:</b> <%=student.first_name%> <%=student.last_name%></li>
+                <li><b>Birth Date:</b> <%=student.birth_date%></li>
+                <li><b>Age:</b> <%=student.age%></li>
+                <li><b>Gender:</b> <%=student.gender%></li>
+                <li><b>Disability:</b> <%=student.disabilities%></li>
+                <li><b>Grade:</b> <%=student.grade%></li>
+              </ul>
+            </td>
+            <td>
+              <ul style="list-style-type:none">
+                <li><b>Father's Name:</b> <%=student.father_name%></li>
+                <li><b>Father's Employment:</b> <%=student.father_employment%></li>
+                <li><b>Mother's Name:</b> <%=student.mother_name%></li>
+                <li><b>Mother's Employment:</b> <%=student.mother_employment%></li>
+                <li><b>Address:</b> <%=student.family_address%></li>
+                <li><b>Phone:</b> <%=student.family_phone%></li>
+                <li><b>Student Currently Living:</b> <%=student.student_living_with%></li>
+                <li><b>Student's Legal Guardian:</b> <%=student.student_guardian%></li>
+                <li><b>Church:</b> <%=student.family_church%></li>
+              </ul>
+            </td>
+          </tr>
+
+          <thead>
+            <th>PARENTAL RESPONSIBILITY AGREEMENT</th>
+            <th>HSLDA Information</th>
+          </thead>
+          <tr>
+            <td>
+              <ul style="list-style-type:none">
+                <li><b>Affirm HSLDA:</b> <%=student.membership_agreement%></li>
+                <li><b>Affirm Cirriculum:</b> <%=student.curriculum_agreement%></li>
+                <li><b>Affirm Recordkeeping:</b> <%=student.record_keeping_agreement%></li>
+                <li><b>Affirm Responsibility:</b> <%=student.parent_participation_agreement%></li>
+                <li><b>Affirm 180 Days:</b> <%=student.parent_home_agreement%></li>
+                <li><b>Affirm Attendance:</b> <%=student.attendance_grades_agreement%></li>
+                <li><b>Affirm Course Details:</b> <%=student.course_of_study_course_description_agreement%></li>
+                <li><b>Affirm Documentation:</b> <%=student.read_handbook_agreement%></li>
+                <li><b>Affirm Withdrawal Notification:</b> <%=student.change_schools_agreement%></li>
+                <li><b>Affirm Dismissal:</b> <%=student.enrolment_dismissal_agreement%></li>
+                <li><b>Affirm Parental Responsibiltity:</b> <%=student.parent_direction_agreement%></li>
+                <li><b>Father's Signature:</b> <%=student.father_signature%> <%=student.father_sign_date%></li>
+                <li><b>Mother's Signature:</b> <%=student.mother_signature%> <%=student.mother_sign_date%></li>
+                <li><b>Church:</b> <%=student.family_church%></li>
+              </ul>
+            </td>
+            <td>
+              <ul style="list-style-type:none">
+                <li><b>HSLDA Member:</b> <%=student.HSLDA_membership%></li>
+                <li><b>HSLDA Membership ID:</b> some id</li>
+                <li><b>HSLDA Membership Espires:</b> some expiration date</li>
+                <hr>
+                <li><b>Notes:</b> some notes</li>
+              </ul>
+            </td>
+          </tr>
+
+          <thead>
+            <th>FACULTY INFORMATION</th>
+            <th>RECIEVED INFORMATION</th>
+          </thead>
+          <tr>
+            <td>
+              <ul style="list-style-type:none">
+                <li><b>Primary Teacher:</b> <%=student.primary_teacher%></li>
+                <li><b>Highschool Eduication:</b> <%=student.high_school_eduication%></li>
+                <li><b>Highschool Attended:</b> Name of school</li>
+                <li><b>College Eduication:</b> <%=student.college_eduication%></li>
+                <li><b>Teaching Experience:</b> <%=student.list_training%></li>
+              </ul>
+            </td>
+            <td>
+              <ul style="list-style-type:none">
+                <li>Date Recieved: Form submission date</li>
+                <li>Some other information.  Not sure where it comes from</li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </body>
 </html>
