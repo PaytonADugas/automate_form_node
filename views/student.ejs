@@ -90,10 +90,10 @@
             <td>
               <ul style="list-style-type:none">
                 <li><b>HSLDA Member:</b> <%=student.HSLDA_membership%></li>
-                <li><b>HSLDA Membership ID:</b> some id</li>
-                <li><b>HSLDA Membership Espires:</b> some expiration date</li>
+                <li><b>HSLDA Membership ID:</b> <%=student.HSLDA_membership_id%></li>
+                <li><b>HSLDA Membership Expires:</b> <%=student.HSLDA_membership_expires%></li>
                 <hr>
-                <li><b>Notes:</b> some notes</li>
+                <li><b>Notes:</b> <%=student.notes%></li>
               </ul>
             </td>
           </tr>
@@ -114,12 +114,19 @@
             </td>
             <td>
               <ul style="list-style-type:none">
-                <li>Date Recieved: Form submission date</li>
-                <li>Some other information.  Not sure where it comes from</li>
+                <li>Date Recieved: <%=student.dateRecieved%></li>
+                <li>Fees Recieved: <%=student.feesRecieved%></li>
+                <li>Letters Sent: <%=student.lettersSent%></li>
+                <li>Tdap: <%=student.tdap%></li>
               </ul>
             </td>
           </tr>
         </table>
+        <br>
+        <div class="text-center">
+          <button class="btn btn-primary" type="button">Save as PDF</button>
+          <a href='student_edit?id=<%= student_id %>'><button class="btn btn-primary" type="button">Edit</button></a>
+        </div>
       </div>
     </div>
   </body>

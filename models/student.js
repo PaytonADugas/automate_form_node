@@ -61,7 +61,14 @@ var StudentModelSchema = new Schema({
   father_signature: String,
   father_sign_date: String,
   mother_signature: String,
-  mother_sign_date: String
+  mother_sign_date: String,
+  HSLDA_membership_id: String,
+  HSLDA_membership_expires: String,
+  notes: String,
+  dateRecieved: String,
+  feesRecieved: String,
+  lettersSent: String,
+  tdap: String
 });
 
 // Export Student Model

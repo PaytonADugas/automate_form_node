@@ -2,7 +2,7 @@ var express = require('express');
 var url = require('url');
 var router = express.Router();
 var fs = require('fs');
-
+var ObjectID = require('mongodb').ObjectID
 
 // DATABASE Connection
 //Import the mongoose module
@@ -17,6 +17,14 @@ var db = mongoose.connection;
 
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+// Current date
+var dateObj = new Date();
+var month = dateObj.getUTCMonth() + 1; //months from 1-12
+var day = dateObj.getUTCDate();
+var year = dateObj.getUTCFullYear();
+
+today = year + "/" + month + "/" + day;
 
 //Get models
 // var models_path = __dirname + '../' + '/models'
@@ -88,7 +96,14 @@ router.post('/form', function(req, res, next){
     father_signature: req.body.father_signature,
     father_sign_date: req.body.father_sign_date,
     mother_signature: req.body.mother_signature,
-    mother_sign_date: req.body.mother_sign_date
+    mother_sign_date: req.body.mother_sign_date,
+    HSLDA_membership_id: '',
+    HSLDA_membership_expires: '',
+    notes: 'no notes',
+    dateRecieved: today,
+    feesRecieved: '',
+    lettersSent: '',
+    tdap: ''
   });
 
   student.save(function (err) {
@@ -97,6 +112,16 @@ router.post('/form', function(req, res, next){
   });
 });
 
+// router.post('/student_edit', function(req, res, next){
+//   var queryObject = url.parse(req.url,true).query;
+//   var id = queryObject.id;
+//   db.collection("students").update(
+//    { _id: id },
+//    { $set: { "notes": req.body.notes } }
+//   );
+// }
+
+
 router.get('/submitted', function(req, res, next){
   db.collection("students").find().toArray(function(err, result) {
     if (err) throw err;
@@ -104,15 +129,55 @@ router.get('/submitted', function(req, res, next){
   });
 });
 
-router.get('/student', function(req, res, next){
+router.post('/student_edit', function(req, res, next){
   var queryObject = url.parse(req.url,true).query;
   var id = queryObject.id;
+
+  db.collection('students').updateOne(
+    {'_id': ObjectID(id)},
+    { $set: {notes: req.body.notes,
+      feesRecieved: req.body.feesRecieved,
+      lettersSent: req.body.lettersSent,
+      tdap: req.body.tdap,
+      HSLDA_membership_id: req.body.HSLDA_membership_id,
+      HSLDA_membership_expires: req.body.HSLDA_membership_expires
+    }}
+  );
+
+  console.log('data saved');
   db.collection("students").find().toArray(function(err, result) {
     if (err) throw err;
     for(let i = 0; i < result.length; i++){
       if(result[i]._id == id)
-        res.render('student', { student: result[i]});
+        res.render('student', { student: result[i], student_id: id});
     }
+  });
+});
+
+router.get('/student', function(req, res, next){
+  var queryObject = url.parse(req.url,true).query;
+  var id = queryObject.id;
+  console.log(id);
+  db.collection("students").find().toArray(function(err, result) {
+    if (err) throw err;
+    for(let i = 0; i < result.length; i++){
+      if(result[i]._id == id)
+        res.render('student', { student: result[i], student_id: id});
+    }
+  });
+});
+
+router.get('/student_edit', function(req, res, next){
+  var queryObject = url.parse(req.url,true).query;
+  var id = queryObject.id;
+  console.log(id);
+  db.collection("students").find().toArray(function(err, result) {
+    if (err) throw err;
+    for(let i = 0; i < result.length; i++){
+      if(result[i]._id == id)
+        res.render('student_edit', { student: result[i], student_id: id});
+    }
+    console.log('Student Not Found');
   });
 });
 
