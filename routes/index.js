@@ -3,6 +3,7 @@ var url = require('url');
 var router = express.Router();
 var fs = require('fs');
 var ObjectID = require('mongodb').ObjectID
+const { jsPDF } = require("jspdf");
 
 // DATABASE Connection
 //Import the mongoose module
@@ -24,7 +25,7 @@ var month = dateObj.getUTCMonth() + 1; //months from 1-12
 var day = dateObj.getUTCDate();
 var year = dateObj.getUTCFullYear();
 
-today = year + "/" + month + "/" + day;
+today = year + "-" + month + "-" + day;
 
 //Get models
 // var models_path = __dirname + '../' + '/models'
@@ -101,8 +102,8 @@ router.post('/form', function(req, res, next){
     HSLDA_membership_expires: '',
     notes: 'no notes',
     dateRecieved: today,
-    feesRecieved: '',
-    lettersSent: '',
+    feesRecieved: 'none',
+    lettersSent: 'none',
     tdap: ''
   });
 
@@ -129,31 +130,6 @@ router.get('/submitted', function(req, res, next){
   });
 });
 
-router.post('/student_edit', function(req, res, next){
-  var queryObject = url.parse(req.url,true).query;
-  var id = queryObject.id;
-
-  db.collection('students').updateOne(
-    {'_id': ObjectID(id)},
-    { $set: {notes: req.body.notes,
-      feesRecieved: req.body.feesRecieved,
-      lettersSent: req.body.lettersSent,
-      tdap: req.body.tdap,
-      HSLDA_membership_id: req.body.HSLDA_membership_id,
-      HSLDA_membership_expires: req.body.HSLDA_membership_expires
-    }}
-  );
-
-  console.log('data saved');
-  db.collection("students").find().toArray(function(err, result) {
-    if (err) throw err;
-    for(let i = 0; i < result.length; i++){
-      if(result[i]._id == id)
-        res.render('student', { student: result[i], student_id: id});
-    }
-  });
-});
-
 router.get('/student', function(req, res, next){
   var queryObject = url.parse(req.url,true).query;
   var id = queryObject.id;
@@ -170,16 +146,58 @@ router.get('/student', function(req, res, next){
 router.get('/student_edit', function(req, res, next){
   var queryObject = url.parse(req.url,true).query;
   var id = queryObject.id;
-  console.log(id);
   db.collection("students").find().toArray(function(err, result) {
     if (err) throw err;
     for(let i = 0; i < result.length; i++){
       if(result[i]._id == id)
         res.render('student_edit', { student: result[i], student_id: id});
     }
-    console.log('Student Not Found');
   });
 });
 
+router.post('/student_edit', function(req, res, next){
+  var queryObject = url.parse(req.url,true).query;
+  var id = queryObject.id;
+  updateData(id, req).then(() => {
+    res.redirect(`/student?id=${id}`);
+  });
+});
+
+async function updateData(id, req) {
+  try {
+    db.collection('students').updateOne(
+      {'_id': ObjectID(id)},
+      { $set: {
+        age: req.body.age,
+        grade: req.body.grade,
+        father_name: req.body.father_name,
+        father_employment: req.body.father_employment,
+        mother_name: req.body.mother_name,
+        mother_employment: req.body.mother_employment,
+        family_address: req.body.family_address,
+        family_city: req.body.family_city,
+        family_state: req.body.family_state,
+        family_zip: req.body.family_zip,
+        family_phone: req.body.family_phone,
+        family_email: req.body.family_email,
+        student_living_with: req.body.student_living_with,
+        student_guardian: req.body.student_guardian,
+        family_church: req.body.family_church,
+        primary_teacher: req.body.primary_teacher,
+        high_school_eduication: req.body.high_school_eduication,
+        college_eduication: req.body.college_eduication,
+        list_training: req.body.list_training,
+        notes: req.body.notes,
+        feesRecieved: req.body.feesRecieved,
+        lettersSent: req.body.lettersSent,
+        tdap: req.body.tdap,
+        HSLDA_membership_id: req.body.HSLDA_membership_id,
+        HSLDA_membership_expires: req.body.HSLDA_membership_expires
+      }}
+    );
+  } catch(err){
+    console.log(err);
+  }
+}
 
 module.exports = router;

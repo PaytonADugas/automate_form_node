@@ -24,7 +24,6 @@
         text-align: center;
         margin-bottom: 30px;
       }
-
       input{
         margin: 2px;
       }
@@ -36,7 +35,7 @@
 
     <div style='padding-top: 50px' class="container">
       <div class="jumbotron">
-        <h1>Form for <%=student.first_name%> <%=student.last_name%></h1>
+        <h1>Form for <%=student.first_name%> <%=student.last_name%> - <%= student.school_year %></h1>
         <form method="post">
           <table>
             <thead>
@@ -46,25 +45,28 @@
             <tr>
               <td>
                 <ul style="list-style-type:none">
+                  <li><b>Student ID:</b> <%=student.student_id%></li>
+                  <br>
                   <li><b>Name:</b> <%=student.first_name%> <%=student.last_name%></li>
                   <li><b>Birth Date:</b> <%=student.birth_date%></li>
-                  <li><b>Age:</b> <%=student.age%></li>
+                  <li><b>Age:</b> <input id='age' name="age"></input></li>
                   <li><b>Gender:</b> <%=student.gender%></li>
                   <li><b>Disability:</b> <%=student.disabilities%></li>
-                  <li><b>Grade:</b> <%=student.grade%></li>
+                  <li><b>Grade:</b><select id='grade_select' name="grade"></select></li>
                 </ul>
               </td>
               <td>
                 <ul style="list-style-type:none">
-                  <li><b>Father's Name:</b> <%=student.father_name%></li>
-                  <li><b>Father's Employment:</b> <%=student.father_employment%></li>
-                  <li><b>Mother's Name:</b> <%=student.mother_name%></li>
-                  <li><b>Mother's Employment:</b> <%=student.mother_employment%></li>
-                  <li><b>Address:</b> <%=student.family_address%></li>
-                  <li><b>Phone:</b> <%=student.family_phone%></li>
-                  <li><b>Student Currently Living:</b> <%=student.student_living_with%></li>
-                  <li><b>Student's Legal Guardian:</b> <%=student.student_guardian%></li>
-                  <li><b>Church:</b> <%=student.family_church%></li>
+                  <li><b>Father's Name:</b> <input id='father_name' name="father_name"></input></li>
+                  <li><b>Father's Employment:</b> <input id='father_employment' name="father_employment"></input></li>
+                  <li><b>Mother's Name:</b> <input id='mother_name' name="mother_name"></input></li>
+                  <li><b>Mother's Employment:</b> <input id='mother_employment' name="mother_employment"></input></li>
+                  <li><b>Address:</b> <input id='family_address' name="family_address"></input></li>
+                  <li><b>Phone:</b> <input id='family_phone' name="family_phone"></input></li>
+                  <li><b>Email:</b> <input id='family_email' name="family_email"></input></li>
+                  <li><b>Student Currently Living:</b> <input id='student_living_with' name="student_living_with"></input></li>
+                  <li><b>Student's Legal Guardian:</b> <input id='student_guardian' name="student_guardian"></input></li>
+                  <li><b>Church:</b> <input id='family_church' name="family_church"></input></li>
                 </ul>
               </td>
             </tr>
@@ -89,7 +91,6 @@
                   <li><b>Affirm Parental Responsibiltity:</b> <%=student.parent_direction_agreement%></li>
                   <li><b>Father's Signature:</b> <%=student.father_signature%> <%=student.father_sign_date%></li>
                   <li><b>Mother's Signature:</b> <%=student.mother_signature%> <%=student.mother_sign_date%></li>
-                  <li><b>Church:</b> <%=student.family_church%></li>
                 </ul>
               </td>
               <td>
@@ -112,11 +113,11 @@
             <tr>
               <td>
                 <ul style="list-style-type:none">
-                  <li><b>Primary Teacher:</b> <%=student.primary_teacher%></li>
-                  <li><b>Highschool Eduication:</b> <%=student.high_school_eduication%></li>
+                  <li><b>Primary Teacher:</b> <input id='primary_teacher' name="primary_teacher"></input></li>
+                  <li><b>Highschool Eduication:</b> <input id='high_school_eduication' name="high_school_eduication"></input></li>
                   <li><b>Highschool Attended:</b> Name of school</li>
-                  <li><b>College Eduication:</b> <%=student.college_eduication%></li>
-                  <li><b>Teaching Experience:</b> <%=student.list_training%></li>
+                  <li><b>College Eduication:</b> <input id='college_eduication' name="college_eduication"></input></li>
+                  <li><b>Teaching Experience:</b> <textarea id='list_training' name="list_training"><%=student.list_training%></textarea></li>
                 </ul>
               </td>
               <td>
@@ -142,15 +143,70 @@
         </form>
       </div>
     </div>
-  </body>
 
-  <script>
-    var tdap = <%- JSON.stringify(student.tdap) %>;
-    var hslda_id = <%- JSON.stringify(student.HSLDA_membership_id) %>;
-    var hslda_m_e = <%- JSON.stringify(student.HSLDA_membership_expires) %>;
-    document.getElementById('tdap').setAttribute('value', tdap);
-    document.getElementById('HSLDA_membership_id').setAttribute('value', hslda_id);
-    document.getElementById('HSLDA_membership_expires').setAttribute('value', hslda_m_e);
-  </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <script>
+      var age = <%- JSON.stringify(student.age) %>;
+      var grade = <%- JSON.stringify(student.grade) %>;
+      document.getElementById('age').setAttribute('value', age);
+      //document.getElementById('grade').setAttribute('value', grade);
+
+      var father_name = <%- JSON.stringify(student.father_name) %>;
+      var father_employment = <%- JSON.stringify(student.father_employment) %>;
+      var mother_name = <%- JSON.stringify(student.mother_name) %>;
+      var mother_employment = <%- JSON.stringify(student.mother_employment) %>;
+      var family_address = <%- JSON.stringify(student.family_address) %>;
+      var family_phone = <%- JSON.stringify(student.family_phone) %>;
+      var family_email = <%- JSON.stringify(student.family_email) %>;
+      var student_living_with = <%- JSON.stringify(student.student_living_with) %>;
+      var student_guardian = <%- JSON.stringify(student.student_guardian) %>;
+      var family_church = <%- JSON.stringify(student.family_church) %>;
+      document.getElementById('father_name').setAttribute('value', father_name);
+      document.getElementById('father_employment').setAttribute('value', father_employment);
+      document.getElementById('mother_name').setAttribute('value', mother_name);
+      document.getElementById('mother_employment').setAttribute('value', mother_employment);
+      document.getElementById('family_address').setAttribute('value', family_address);
+      document.getElementById('family_phone').setAttribute('value', family_phone);
+      document.getElementById('family_email').setAttribute('value', family_email);
+      document.getElementById('student_living_with').setAttribute('value', student_living_with);
+      document.getElementById('student_guardian').setAttribute('value', student_guardian);
+      document.getElementById('family_church').setAttribute('value', family_church);
+
+      var primary_teacher = <%- JSON.stringify(student.primary_teacher) %>;
+      var high_school_eduication = <%- JSON.stringify(student.high_school_eduication) %>;
+      var college_eduication = <%- JSON.stringify(student.college_eduication) %>;
+      var list_training = <%- JSON.stringify(student.list_training) %>;
+      document.getElementById('primary_teacher').setAttribute('value', primary_teacher);
+      document.getElementById('high_school_eduication').setAttribute('value', high_school_eduication);
+      document.getElementById('college_eduication').setAttribute('value', college_eduication);
+      document.getElementById('list_training').setAttribute('value', list_training);
+
+      var tdap = <%- JSON.stringify(student.tdap) %>;
+      var hslda_id = <%- JSON.stringify(student.HSLDA_membership_id) %>;
+      var hslda_m_e = <%- JSON.stringify(student.HSLDA_membership_expires) %>;
+      document.getElementById('tdap').setAttribute('value', tdap);
+      document.getElementById('HSLDA_membership_id').setAttribute('value', hslda_id);
+      document.getElementById('HSLDA_membership_expires').setAttribute('value', hslda_m_e);
+
+      var grade = <%- JSON.stringify(student.grade) %>;
+      var grades = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th'];
+
+      function setGrade(){
+        var html = '';
+        var selected = '';
+        for(let i = 0; i < 12; i++){
+          var grade_i = grades[i];
+          if(grade == grade_i)
+            selected = 'selected';
+          html += `<option value="${grade_i}" ${selected}>${grade_i}</option>`;
+          selected = '';
+        }
+        $('#grade_select').html(html);
+      }
+      setGrade();
+
+    </script>
+  </body>
 
 </html>

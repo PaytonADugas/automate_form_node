@@ -32,16 +32,18 @@
   <body>
     <div style='padding-top: 50px' class="container">
       <div class="jumbotron">
-        <h1>Form for <%=student.first_name%> <%=student.last_name%></h1>
+        <h1>Form for <%=student.first_name%> <%=student.last_name%> - <%= student.school_year %></h1>
         <table>
           <thead>
             <th>STUDENT INFORMATION</th>
-            <th>FAMILY INFORMATION: <%= student.school_year %></th>
+            <th>FAMILY INFORMATION</th>
           </thead>
           <tr>
             <td>
               <ul style="list-style-type:none">
-                <li><b>Name:</b> <%=student.first_name%> <%=student.last_name%></li>
+                <li><b>Student ID:</b> <%=student.student_id%></li>
+                <br>
+              <li><b>Name:</b> <%=student.first_name%> <%=student.last_name%></li>
                 <li><b>Birth Date:</b> <%=student.birth_date%></li>
                 <li><b>Age:</b> <%=student.age%></li>
                 <li><b>Gender:</b> <%=student.gender%></li>
@@ -57,6 +59,7 @@
                 <li><b>Mother's Employment:</b> <%=student.mother_employment%></li>
                 <li><b>Address:</b> <%=student.family_address%></li>
                 <li><b>Phone:</b> <%=student.family_phone%></li>
+                <li><b>Email:</b> <%=student.family_email%></li>
                 <li><b>Student Currently Living:</b> <%=student.student_living_with%></li>
                 <li><b>Student's Legal Guardian:</b> <%=student.student_guardian%></li>
                 <li><b>Church:</b> <%=student.family_church%></li>
@@ -84,7 +87,6 @@
                 <li><b>Affirm Parental Responsibiltity:</b> <%=student.parent_direction_agreement%></li>
                 <li><b>Father's Signature:</b> <%=student.father_signature%> <%=student.father_sign_date%></li>
                 <li><b>Mother's Signature:</b> <%=student.mother_signature%> <%=student.mother_sign_date%></li>
-                <li><b>Church:</b> <%=student.family_church%></li>
               </ul>
             </td>
             <td>
@@ -93,7 +95,7 @@
                 <li><b>HSLDA Membership ID:</b> <%=student.HSLDA_membership_id%></li>
                 <li><b>HSLDA Membership Expires:</b> <%=student.HSLDA_membership_expires%></li>
                 <hr>
-                <li><b>Notes:</b> <%=student.notes%></li>
+                <li><b>Notes:</b> <br> <%=student.notes%></li>
               </ul>
             </td>
           </tr>
@@ -115,8 +117,8 @@
             <td>
               <ul style="list-style-type:none">
                 <li><b>Date Recieved:</b> <%=student.dateRecieved%></li>
-                <li><b>Fees Recieved:</b> <%=student.feesRecieved%></li>
-                <li><b>Letters Sent:</b> <%=student.lettersSent%></li>
+                <li><b>Fees Recieved:</b> <br> <%=student.feesRecieved%></li>
+                <li><b>Letters Sent:</b> <br> <%=student.lettersSent%></li>
                 <li><b>Tdap:</b> <%=student.tdap%></li>
               </ul>
             </td>
@@ -129,5 +131,11 @@
         </div>
       </div>
     </div>
+
+    <script type='module' src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script src='javascripts/saveToPDF.js'>
+
+    </script>
+
   </body>
 </html>

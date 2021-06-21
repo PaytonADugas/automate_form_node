@@ -32,22 +32,22 @@
               <h2> <b>Student Information</b></h2>
               <hr>
               <label class='label'>Student Last Name:</label>
-              <input type="text" name="first_name" class="form-control">
+              <input type="text" name="first_name" class="form-control" required>
               <label class='label'>Student First Name:</label>
-              <input type="text" name="last_name" class="form-control">
+              <input type="text" name="last_name" class="form-control" required>
               <label class='label'>Student Birth Date:</label>
-              <input type="date" name="date" class="form-control">
+              <input type="date" name="birth_date" class="form-control" required>
               <label class='label'>Student Age:</label>
-              <input type="text" name="age" class="form-control">
+              <input type="text" name="age" class="form-control" required>
               <label class='label'>Student Gender:</label>
-              <select name="gender" class="form-control">
+              <select name="gender" class="form-control" required>
                 <option value="" disabled selected></option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
               </select>
               <br>
               <label class='label'>Has student had any academic, physical and/or learning disabilities or problems?</label>
-              <select name="disabilities" class="form-control">
+              <select name="disabilities" class="form-control" required>
                 <option value="" disabled selected></option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
@@ -58,13 +58,13 @@
               <h2><b>Academic Information</b></h2>
               <hr>
               <label class='label'>School Year:</label>
-              <select name="school_year" class="form-control">
+              <select name="school_year" class="form-control" required>
                 <option value="" disabled selected></option>
                 <option value="2021/2022">2021/2022</option>
               </select>
               <br>
               <label class='label'>Grade</label>
-              <select name="grade" class="form-control">
+              <select name="grade" class="form-control" required>
                 <option value="" disabled selected></option>
                 <option value="k5">k5</option>
                 <option value="1st">1st</option>
@@ -86,13 +86,13 @@
               <h2> <b>Academic Records</b></h2>
               <hr>
               <label class='label'>We give permission to have our student's record requested from their previous school?</label>
-              <select name="record_permission" class="form-control">
+              <select name="record_permission" class="form-control" required>
                 <option value="" disabled selected></option>
                 <option value="yes">Yes</option>
               </select>
               <br>
               <label class='label'>Previous School Year:</label>
-              <select name="previous_school_year" class="form-control">
+              <select name="previous_school_year" class="form-control" required>
                 <option value="" disabled selected></option>
                 <option value="public">Public</option>
                 <option value="private">Private</option>
@@ -100,16 +100,16 @@
               </select>
               <p>If homeschooled, you will need to send NCCS your student’s academic records, a copy of their birth certificate, a copy of up to date immunization record.</p>
               <label class='label'>Previous School:</label>
-              <input type="text" name="previous_school" class="form-control">
+              <input type="text" name="previous_school" class="form-control" required>
               <br>
               <label class='label'>Previous School Mailing Address:</label>
-              <input type="text" name="previous_school_mailing_address" class="form-control">
+              <input type="text" name="previous_school_mailing_address" class="form-control" required>
               <br>
               <label class='label'>City:</label>
-              <input type="text" name="previous_school_city" class="form-control">
+              <input type="text" name="previous_school_city" class="form-control" required>
               <br>
               <label class='label'>State:</label>
-              <select id="inputState" class="form-control" class="form-control">
+              <select id="inputState" class="form-control" class="form-control" required>
                 <option value="" disabled selected>Choose...</option>
                 <option value="AL">Alabama</option>
               	<option value="AK">Alaska</option>
@@ -165,13 +165,13 @@
               </select>
               <br>
               <label class='label'>Zip:</label>
-              <input type="text" name="previous_school_zip" class="form-control">
+              <input type="text" name="previous_school_zip" class="form-control" required>
               <br>
               <label class='label'>Previous School Phone:</label>
-              <input type="text" name="previous_school_phone" class="form-control">
+              <input type="text" name="previous_school_phone" class="form-control" required>
               <br>
               <label class='label'>Has your student ever been suspended, expelled or charged with truancy?</label>
-              <select name="previous_school_been_suspended" class="form-control">
+              <select name="previous_school_been_suspended" class="form-control" required>
                 <option value="" disabled selected></option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
@@ -183,19 +183,19 @@
               <h2> <b>Family Information</b></h2>
               <hr>
               <label class='label'>Father's Full Name:</label>
-              <input type="text" name="father_name" class="form-control">
+              <input type="text" name="father_name" class="form-control" required>
               <label class='label'>Father's Place of Employment:</label>
-              <input type="text" name="father_employment" class="form-control">
+              <input type="text" name="father_employment" class="form-control" required>
               <label class='label'>Mother's Full Name:</label>
-              <input type="text" name="mother_name" class="form-control">
+              <input type="text" name="mother_name" class="form-control" required>
               <label class='label'>Mother's Place of Employment:</label>
-              <input type="text" name="mother_employment" class="form-control">
+              <input type="text" name="mother_employment" class="form-control" required>
               <label class='label'>Family Street Address:</label>
-              <input type="text" name="family_address" class="form-control">
+              <input type="text" name="family_address" class="form-control" required>
               <label class='label'>City:</label>
-              <input type="text" name="family_city" class="form-control">
+              <input type="text" name="family_city" class="form-control" required>
               <label class='label'>State:</label>
-              <select id="inputState" class="form-control" class="form-control">
+              <select id="inputState" class="form-control" class="form-control" required>
                 <option value="" disabled selected>Choose...</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -249,24 +249,24 @@
                 <option value="WI">Wisconsin</option>
                 <option value="WY">Wyoming</option>
               </select>              <label class='label'>Zip:</label>
-              <input type="text" name="family_zip" class="form-control">
+              <input type="text" name="family_zip" class="form-control" required>
               <label class='label'>Phone:</label>
-              <input type="text" name="family_phone" class="form-control">
+              <input type="text" name="family_phone" class="form-control" required>
               <label class='label'>Email:</label>
-              <input type="text" name="family_email" class="form-control">
+              <input type="text" name="family_email" class="form-control" required>
               <label class='label'>With whom is the student currently living?</label>
-              <input type="text" name="student_living_with" class="form-control">
+              <input type="text" name="student_living_with" class="form-control" required>
               <label class='label'>Whos is the student's legal guardian?</label>
-              <input type="text" name="student_guardian" class="form-control">
+              <input type="text" name="student_guardian" class="form-control" required>
               <label class='label'>Church family attends:</label>
-              <input type="text" name="family_church" class="form-control">
+              <input type="text" name="family_church" class="form-control" required>
             </div>
 
             <div class="HSLDA_information title">
               <h2> <b>HSLDA Information</b></h2>
               <hr>
               <label class='label'>Do you hold Home School Legal Defense Association membership?</label>
-              <select name="HSLDA_membership" class="form-control">
+              <select name="HSLDA_membership" class="form-control" required>
                 <option value="" disabled selected></option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
@@ -277,21 +277,21 @@
               <h2> <b>Faculty Information</b></h2>
               <hr>
               <label class='label'>Who will be the primary teacher, at home with the student, during school hours?</label>
-              <input type="text" name="primary_teacher" class="form-control">
+              <input type="text" name="primary_teacher" class="form-control" required>
               <label class='label'>High School Eduication?</label>
-              <select name="high_school_eduication" class="form-control">
+              <select name="high_school_eduication" class="form-control" required>
                 <option value="" disabled selected></option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
               </select>
               <label class='label'>College Eduication?</label>
-              <select name="college_eduication" class="form-control">
+              <select name="college_eduication" class="form-control" required>
                 <option value="" disabled selected></option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
               </select>
               <label class='label'>List teacher training or other education related training:</label>
-              <textarea type="text" name="list_training" class="form-control"></textarea>
+              <textarea type="text" name="list_training" class="form-control" required></textarea>
             </div>
 
             <div class="parental-responsibility_agreement title">
@@ -300,47 +300,47 @@
               <hr>
               <label class='label'>We will apply to HSLDA for membership OR we will renew our HSLDA membership each year that we are enrolled in NCCS.</label>
               <br>
-              <input type="checkbox" value name="membership_agreement"> Agree</input>
+              <input type="checkbox" value name="membership_agreement" required> Agree</input>
               <br>
               <label class='label'>We will provide curriculum for student in compliance with state guidelines for subjects to be taught. </label>
               <br>
-              <input type="checkbox" value name="curriculum_agreement"> Agree</input>
+              <input type="checkbox" value name="curriculum_agreement" required> Agree</input>
               <br>
               <label class='label'>We understand the importance of accurate record keeping and agree to maintain a daily lesson plan book that records what was accomplished in each subject and we will keep these records for, at least, a two year period.</label>
               <br>
-              <input type="checkbox" value name="record_keeping_agreement"> Agree</input>
+              <input type="checkbox" value name="record_keeping_agreement" required> Agree</input>
               <br>
               <label class='label'>We understand it is the parent’s responsibility to provide curriculum, do lesson planning, maintain a record of daily work, evaluate our student’s progress and that all decisions relating to educational philosophy and methods, style, selection of books, teaching material and curriculum, grading and evaluations are our responsibility. Therefore, the outcome of your student’s education rests on your efforts and that of your students.</label>
               <br>
-              <input type="checkbox" value name="parent_participation_agreement"> Agree</input>
+              <input type="checkbox" value name="parent_participation_agreement" required> Agree</input>
               <br>
               <label class='label'>One parent will be at home during school hours and teaching our student in an orderly and systematic manner, at least 180 days of the year. </label>
               <br>
-              <input type="checkbox" value name="parent_home_agreement"> Agree</input>
+              <input type="checkbox" value name="parent_home_agreement" required> Agree</input>
               <br>
               <label class='label'>We will enter attendance and grades at the times specified on the school calendar, realizing that timely attendance reporting is absolutely essential in an independent study program. </label>
               <br>
-              <input type="checkbox" value name="attendance_grades_agreement"> Agree</input>
+              <input type="checkbox" value name="attendance_grades_agreement" required> Agree</input>
               <br>
               <label class='label'>We will post our elementary student’s proposed course of study and/or high school student’s course description on their report card page at the beginning of the school year.</label>
               <br>
-              <input type="checkbox" value name="course_of_study_course_description_agreement"> Agree</input>
+              <input type="checkbox" value name="course_of_study_course_description_agreement" required> Agree</input>
               <br>
               <label class='label'>We understand that the School Calendar, NCCS Handbook, and the NCCS High School Manual have important dates and information that we need to know in order to work responsibly with NCCS. We agree to read through the Handbook/Manual and review the school calendar and acquainted ourselves with the school services and our responsibilities.</label>
               <br>
-              <input type="checkbox" value name="read_handbook_agreement"> Agree</input>
+              <input type="checkbox" value name="read_handbook_agreement" required> Agree</input>
               <br>
               <label class='label'>We will notify NCCS if and when we enroll our student in another school as a matter of courtesy. </label>
               <br>
-              <input type="checkbox" value name="change_schools_agreement"> Agree</input>
+              <input type="checkbox" value name="change_schools_agreement" required> Agree</input>
               <br>
               <label class='label'>We realize that our student will be dismissed from enrollment if: 1) We fail to do our record keeping in accordance with the NCCS Handbook. 2) We fail to comply with Parental Responsibility Agreement in any way. </label>
               <br>
-              <input type="checkbox" value name="enrolment_dismissal_agreement"> Agree</input>
+              <input type="checkbox" value name="enrolment_dismissal_agreement" required> Agree</input>
               <br>
               <label class='label'>Although we believe it is the parent’s responsibility to direct their student’s education we have policies that may conflict with some family’s strategy. We feel these policies help support the integrity of North County Christian School. We will attempt to accommodate each parent’s philosophy and goals as much as possible. </label>
               <br>
-              <input type="checkbox" value name="parent_direction_agreement"> Agree</input>
+              <input type="checkbox" value name="parent_direction_agreement" required> Agree</input>
               <br>
             </div>
 
@@ -352,13 +352,13 @@
               <input type="checkbox" value name="read_agreement"> Agree</input>
               <br>
               <label class='label'>Father's Signature:</label>
-              <input type="text" name="father_signature" class="form-control">
+              <input type="text" name="father_signature" class="form-control" required>
               <label class='label'>Date</label>
-              <input type="date" name="father_sign_date" class="form-control">
+              <input type="date" name="father_sign_date" class="form-control" required>
               <label class='label'>Mother's Signature</label>
-              <input type="text" name="mother_signature" class="form-control">
+              <input type="text" name="mother_signature" class="form-control" required>
               <label class='label'>Date</label>
-              <input type="date" name="mother_sign_date" class="form-control">
+              <input type="date" name="mother_sign_date" class="form-control" required>
               <p class='title'>Typing in your name and date is acknowledging your agreement and compliance with the Parental Responsibility Agreement.</p>
               <p>If this is not complete enrollment will not be processed.</p>
             </div>
