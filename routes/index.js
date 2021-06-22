@@ -126,7 +126,7 @@ router.post('/form', function(req, res, next){
 router.get('/submitted', function(req, res, next){
   db.collection("students").find().toArray(function(err, result) {
     if (err) throw err;
-    res.render('submitted', { title: result});
+    res.render('submitted', { student: result});
   });
 });
 
