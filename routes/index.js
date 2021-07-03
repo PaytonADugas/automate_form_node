@@ -45,6 +45,7 @@ router.get('/form', function(req, res, next) {
 });
 
 router.post('/form', function(req, res, next){
+
   var id = '000';
   var student = new StudentModel({
     student_id: id,
@@ -112,16 +113,6 @@ router.post('/form', function(req, res, next){
     res.redirect('/');
   });
 });
-
-// router.post('/student_edit', function(req, res, next){
-//   var queryObject = url.parse(req.url,true).query;
-//   var id = queryObject.id;
-//   db.collection("students").update(
-//    { _id: id },
-//    { $set: { "notes": req.body.notes } }
-//   );
-// }
-
 
 router.get('/submitted', function(req, res, next){
   db.collection("students").find().toArray(function(err, result) {
@@ -199,5 +190,26 @@ async function updateData(id, req) {
     console.log(err);
   }
 }
+
+// PDF testing
+
+var fillPdf = require("fill-pdf");
+var formData = { student_name: 'Payton Dugas' };
+var pdfTemplatePath = "PDF/NCCS_Registration_form.pdf";
+
+router.post('/student?id=60d0ec1e927add68886cc9cb', function(req, res) {
+  res.send('hello');
+  // fillPdf.generatePdf(formData, pdfTemplatePath, function(err, output) {
+  //   if(err){
+  //     console.log(err)
+  //   }
+  //   else {
+  //     res.type("application/pdf");
+  //     res.send(output);
+  //   }
+  // });
+});
+
+
 
 module.exports = router;

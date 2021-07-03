@@ -6,6 +6,8 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
     <style>
       .label{
         margin-top: 20px;
@@ -27,6 +29,17 @@
       <div class="container">
         <div class="jumbotron">
           <h1 style='text-align:center'>North County Christian School Registration Form</h1>
+
+          <!-- <form method="post">
+            <label class='label'>Already registered - check with last name, first name, and birthday</label>
+            <div class="input-group">
+              <input type="text" name='last_name' class="form-control" placeholder="Last Name">
+              <input type="text" name='first_name' class="form-control" placeholder="First Name">
+              <input type="date" name='birth_date' class="form-control">
+            </div>
+            <button style='margin-top: 10px' name='submit' type="submit" class='btn btn-primary' value='lookup'>Look me up</button>
+          </form> -->
+
           <form method="post">
             <div class="student_information title">
               <h2> <b>Student Information</b></h2>
@@ -362,11 +375,15 @@
               <p class='title'>Typing in your name and date is acknowledging your agreement and compliance with the Parental Responsibility Agreement.</p>
               <p>If this is not complete enrollment will not be processed.</p>
             </div>
-            <input type="submit" name="btn btn-primary" value='Submit'></input>
+            <input type="submit" name='submit' class="btn btn-primary" value='submit'></input>
           </form>
         </div>
       </div>
     </div>
+
+    <script>
+
+    </script>
 
   </body>
 </html>
