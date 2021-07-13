@@ -3,7 +3,9 @@ var url = require('url');
 var router = express.Router();
 var fs = require('fs');
 var ObjectID = require('mongodb').ObjectID
-const { jsPDF } = require("jspdf");
+var pdfForm = require('pdfform.js');
+const Blob = require('node-fetch');
+
 
 // DATABASE Connection
 //Import the mongoose module
@@ -124,12 +126,23 @@ router.get('/submitted', function(req, res, next){
 router.get('/student', function(req, res, next){
   var queryObject = url.parse(req.url,true).query;
   var id = queryObject.id;
-  console.log(id);
   db.collection("students").find().toArray(function(err, result) {
     if (err) throw err;
     for(let i = 0; i < result.length; i++){
       if(result[i]._id == id)
         res.render('student', { student: result[i], student_id: id});
+    }
+  });
+});
+
+router.post('/student', function(req, res, next){
+  var queryObject = url.parse(req.url,true).query;
+  var id = queryObject.id;
+  db.collection("students").find().toArray(function(err, result) {
+    if (err) throw err;
+    for(let i = 0; i < result.length; i++){
+      if(result[i]._id == id)
+        res.download('marguerite-729510__340.webp');
     }
   });
 });
@@ -190,26 +203,5 @@ async function updateData(id, req) {
     console.log(err);
   }
 }
-
-// PDF testing
-
-var fillPdf = require("fill-pdf");
-var formData = { student_name: 'Payton Dugas' };
-var pdfTemplatePath = "PDF/NCCS_Registration_form.pdf";
-
-router.post('/student?id=60d0ec1e927add68886cc9cb', function(req, res) {
-  res.send('hello');
-  // fillPdf.generatePdf(formData, pdfTemplatePath, function(err, output) {
-  //   if(err){
-  //     console.log(err)
-  //   }
-  //   else {
-  //     res.type("application/pdf");
-  //     res.send(output);
-  //   }
-  // });
-});
-
-
 
 module.exports = router;
