@@ -162,7 +162,59 @@
     <script src="downloads/pdfform.minipdf.dist.js"></script>
     <script>
 
-      var age = <%- JSON.stringify(student.age) %>;
+    // STUDENT INFORMATION
+    var student_id = <%- JSON.stringify(student.student_id) %>;
+    var first_name = <%- JSON.stringify(student.first_name) %>;
+    var last_name = <%- JSON.stringify(student.last_name) %>;
+    var birth_date = <%- JSON.stringify(student.birth_date) %>;
+    var age = <%- JSON.stringify(student.age) %>;
+    var grade = <%- JSON.stringify(student.grade) %>;
+    var gender = <%- JSON.stringify(student.gender) %>;
+    var disabilities = <%- JSON.stringify(student.disabilities) %>;
+    var school_year = <%- JSON.stringify(student.school_year) %>;
+
+
+    // FAMILY INFORMATION
+    var father_name = <%- JSON.stringify(student.father_name) %>;
+    var father_employment = <%- JSON.stringify(student.father_employment) %>;
+    var mother_name = <%- JSON.stringify(student.mother_name) %>;
+    var mother_employment = <%- JSON.stringify(student.mother_employment) %>;
+    var family_address = <%- JSON.stringify(student.family_address) %>;
+    var family_city = <%- JSON.stringify(student.family_city) %>;
+    var family_state = <%- JSON.stringify(student.family_state) %>;
+    var family_zip = <%- JSON.stringify(student.family_zip) %>;
+    var family_phone = <%- JSON.stringify(student.family_phone) %>;
+    var family_email = <%- JSON.stringify(student.family_email) %>;
+    var student_living_with = <%- JSON.stringify(student.student_living_with) %>;
+    var student_guardian = <%- JSON.stringify(student.student_guardian) %>;
+    var family_church = <%- JSON.stringify(student.family_church) %>;
+
+    // FACULTY INFORMATION
+    var primary_teacher = <%- JSON.stringify(student.primary_teacher) %>;
+    var high_school_eduication = <%- JSON.stringify(student.high_school_eduication) %>;
+    var college_eduication = <%- JSON.stringify(student.college_eduication) %>;
+    var list_training = <%- JSON.stringify(student.list_training) %>;
+
+    // PARENT RESPONSIBILITYMENT AGREEMENT
+    var father_signature = <%- JSON.stringify(student.father_signature) %>;
+    var father_sign_date = <%- JSON.stringify(student.father_sign_date) %>;
+    var mother_signature = <%- JSON.stringify(student.mother_signature) %>;
+    var mother_sign_date = <%- JSON.stringify(student.mother_sign_date) %>;
+
+    // ACADEMIC RECORDS
+    var previous_school = <%- JSON.stringify(student.previous_school) %>;
+
+    // HSLDA INFORMATION
+    var HSLDA_membership = <%- JSON.stringify(student.HSLDA_membership) %>;
+    var HSLDA_membership_id = <%- JSON.stringify(student.HSLDA_membership_id) %>;
+    var HSLDA_membership_expires = <%- JSON.stringify(student.HSLDA_membership_expires) %>;
+
+    // OTHER INFORMATION
+    var notes = <%- JSON.stringify(student.notes) %>;
+    var tdap = <%- JSON.stringify(student.tdap) %>;
+    var date_recieved = <%- JSON.stringify(student.dateRecieved) %>;
+    var fees_recieved = <%- JSON.stringify(student.feesRecieved) %>;
+
 
       const downloadFile = (blob, fileName) => {
         const link = document.createElement('a');
@@ -179,15 +231,56 @@
 
       function downloadPDF(){
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'PDF/NCCS_Registration_form.pdf', true);
+        xhr.open('GET', 'PDF/Student_data_PDF.pdf', true);
         xhr.responseType = 'arraybuffer';
         xhr.onreadystatechange=function() {
           if (this.readyState == 4 && this.status == 200){
             var fields = {
-              'student_name': ['Payton'],
-              'student_id': ['id'],
-              'birth_date': ['07-09-1999'],
+              'school_year': [school_year],
+              'student_name': [first_name+' '+last_name],
+              'student_id': [student_id],
+              'birth_date': [birth_date],
               'age': [age],
+              'gender': [gender],
+              'disabilities': [disabilities],
+              'grade': [grade],
+              'username': ['some username'],
+              'password': ['your password'],
+              'father_name': [father_name],
+              'father_employment': [father_employment],
+              'mother_name': [mother_name],
+              'mother_employment': [mother_employment],
+              'family_address': [family_address],
+              'international_address': ['N/A'],
+              'family_address': [family_address+', '+family_city+', '+family_state+', '+family_zip],
+              'family_phone': [family_phone],
+              'family_cell': [family_phone],
+              'family_email': [family_email],
+              'student_living_with': [student_living_with],
+              'student_guardian': [student_guardian],
+              'family_church': [family_church],
+              'primary_teacher': [primary_teacher],
+              'high_school_eduication': [high_school_eduication],
+              'high_school_attended': ['some highschool'],
+              'high_school_city': ['some city'],
+              'high_school_graduation': ['some date'],
+              'college_eduication': [college_eduication],
+              'college_attended': ['some college'],
+              'college_city': ['some city'],
+              'college_graduation': ['some date'],
+              'college_degree': ['some degree'],
+              'teaching_credentials': ['no'],
+              'list_training': [list_training],
+              'father_signature': [father_signature+'\n'+father_sign_date],
+              'mother_signature': [mother_signature+'\n'+mother_sign_date],
+              'HSLDA_membership': [HSLDA_membership],
+              'HSLDA_membership_id': [HSLDA_membership_id],
+              'HSLDA_membership_expires': [HSLDA_membership_expires],
+              'notes': [notes],
+              'date_recieved': [date_recieved],
+              'fees_recieved': [fees_recieved],
+              'previous_school': [previous_school],
+              'tdap': [tdap],
             };
             var filled_pdf; // Uint8Array
             try {
