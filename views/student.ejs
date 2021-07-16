@@ -135,8 +135,10 @@
                 <ul style="list-style-type:none">
                   <li><b>Primary Teacher:</b> <%=student.primary_teacher%></li>
                   <li><b>Highschool Eduication:</b> <%=student.high_school_eduication%></li>
-                  <li><b>Highschool Attended:</b> Name of school</li>
+                  <li><b>Highschool Attended:</b><%=student.high_school_attended%></li>
                   <li><b>College Eduication:</b> <%=student.college_eduication%></li>
+                  <li><b>College Attended:</b><%=student.college_attended%></li>
+                  <li><b>College Attended:</b><%=student.college_degree%></li>
                   <li class='add_breaks'><b>Teaching Experience:</b><br><%=student.list_training%></li>
                 </ul>
               </td>
@@ -192,7 +194,10 @@
     // FACULTY INFORMATION
     var primary_teacher = <%- JSON.stringify(student.primary_teacher) %>;
     var high_school_eduication = <%- JSON.stringify(student.high_school_eduication) %>;
+    var high_school_attended = <%- JSON.stringify(student.high_school_attended) %>;
     var college_eduication = <%- JSON.stringify(student.college_eduication) %>;
+    var college_attended = <%- JSON.stringify(student.college_attended) %>;
+    var college_degree = <%- JSON.stringify(student.college_degree) %>;
     var list_training = <%- JSON.stringify(student.list_training) %>;
 
     // PARENT RESPONSIBILITYMENT AGREEMENT
@@ -245,7 +250,7 @@
               'disabilities': [disabilities],
               'grade': [grade],
               'username': ['some username'],
-              'password': ['your password'],
+              'password': ['**********'],
               'father_name': [father_name],
               'father_employment': [father_employment],
               'mother_name': [mother_name],
@@ -261,18 +266,13 @@
               'family_church': [family_church],
               'primary_teacher': [primary_teacher],
               'high_school_eduication': [high_school_eduication],
-              'high_school_attended': ['some highschool'],
-              'high_school_city': ['some city'],
-              'high_school_graduation': ['some date'],
+              'high_school_attended': [high_school_attended],
               'college_eduication': [college_eduication],
-              'college_attended': ['some college'],
-              'college_city': ['some city'],
-              'college_graduation': ['some date'],
-              'college_degree': ['some degree'],
-              'teaching_credentials': ['no'],
+              'college_attended': [college_attended],
+              'college_degree': [college_degree],
               'list_training': [list_training],
-              'father_signature': [father_signature+'\n'+father_sign_date],
-              'mother_signature': [mother_signature+'\n'+mother_sign_date],
+              'father_signature': [father_signature+' '+father_sign_date],
+              'mother_signature': [mother_signature+' '+mother_sign_date],
               'HSLDA_membership': [HSLDA_membership],
               'HSLDA_membership_id': [HSLDA_membership_id],
               'HSLDA_membership_expires': [HSLDA_membership_expires],

@@ -2,6 +2,7 @@ var express = require('express');
 var url = require('url');
 var router = express.Router();
 var fs = require('fs');
+var nodemailer = require('nodemailer');
 var ObjectID = require('mongodb').ObjectID
 var pdfForm = require('pdfform.js');
 const Blob = require('node-fetch');
@@ -63,6 +64,7 @@ router.post('/form', function(req, res, next){
     previous_school_year: req.body.previous_school_year,
     previous_school: req.body.previous_school,
     previous_school_mailing_address: req.body.previous_school_mailing_address,
+    previous_school_mailing_address2: req.body.previous_school_mailing_address2,
     previous_school_city: req.body.previous_school_city,
     previous_school_state: req.body.previous_school_state,
     previous_school_zip: req.body.previous_school_zip,
@@ -72,6 +74,7 @@ router.post('/form', function(req, res, next){
     mother_name: req.body.mother_name,
     mother_employment: req.body.mother_employment,
     family_address: req.body.family_address,
+    family_address2: req.body.family_address2,
     family_city: req.body.family_city,
     family_state: req.body.family_state,
     family_zip: req.body.family_zip,
@@ -81,9 +84,14 @@ router.post('/form', function(req, res, next){
     student_guardian: req.body.student_guardian,
     family_church: req.body.family_church,
     HSLDA_membership: req.body.HSLDA_membership,
+    HSLDA_membership_id: req.body.HSLDA_membership_id,
+    HSLDA_membership_expires: req.body.HSLDA_membership_expires,
     primary_teacher: req.body.primary_teacher,
     high_school_eduication: req.body.high_school_eduication,
+    high_school_attended: req.body.high_school_attended,
     college_eduication: req.body.college_eduication,
+    college_attended: req.body.college_attended,
+    college_degree: req.body.college_degree,
     list_training: req.body.list_training,
     membership_agreement: 'agreed',
     curriculum_agreement: 'agreed',
@@ -202,6 +210,7 @@ async function updateData(id, req) {
   } catch(err){
     console.log(err);
   }
+
 }
 
 module.exports = router;
