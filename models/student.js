@@ -11,6 +11,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 var Schema = mongoose.Schema;
 
 var StudentModelSchema = new Schema({
+  owner: String,
   student_id: String,
   last_name: String,
   first_name: String,
@@ -47,8 +48,10 @@ var StudentModelSchema = new Schema({
   primary_teacher: String,
   high_school_eduication: String,
   high_school_attended: String,
+  high_school_graduation: String,
   college_eduication: String,
   college_attended: String,
+  college_graduation: String,
   college_degree: String,
   list_training: String,
   membership_agreement: String,

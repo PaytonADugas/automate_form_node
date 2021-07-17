@@ -5,7 +5,7 @@ var fs = require('fs');
 var nodemailer = require('nodemailer');
 var ObjectID = require('mongodb').ObjectID
 var pdfForm = require('pdfform.js');
-const Blob = require('node-fetch');
+var Blob = require('node-fetch');
 
 
 // DATABASE Connection
@@ -37,10 +37,89 @@ today = year + "-" + month + "-" + day;
 // })
 require('../models/student.js');
 const StudentModel = mongoose.model('student');
+require('../models/user.js');
+const UserModel = mongoose.model('user');
 
-/* GET home page. */
+var current_user = '';
+
+////////////////////////////////// Passport //////////////////////////////////
+
+var passport = require('passport');
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+
+// Use the GoogleStrategy within Passport.
+//   Strategies in Passport require a `verify` function, which accept
+//   credentials (in this case, an accessToken, refreshToken, and Google
+//   profile), and invoke a callback with a user object.
+const GOOGLE_CLIENT_ID = '420648149659-dq7mkq3vh733m89otpldhqnqjn8jp43k.apps.googleusercontent.com';
+const GOOGLE_CLIENT_SECRET = 'JIXVQVfIOTlMQcGOczfSnl6R';
+const GOOGLE_REDIRECT = 'http://localhost:3000/auth/google/callback';
+passport.use(new GoogleStrategy({
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: GOOGLE_REDIRECT
+  },
+  function(accessToken, refreshToken, profile, done) {
+    UserModel.findOne({
+      user_id: profile.id
+    }, function(err, user){
+      if(!user){
+        var user = new UserModel({
+          username: profile.displayName,
+          user_id: profile.id,
+          first_name: profile.name.givenName,
+          last_name: profile.name.familyName,
+          provider: 'google',
+          google: profile._json
+        })
+        user.save(function(){
+          if(err) console.log(err);
+          current_user = profile;
+          return done(err, user);
+        })
+      }else{
+        current_user = profile;
+        return done(err, user);
+      }
+    })
+  }
+));
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+// GET /auth/google
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request.  The first step in Google authentication will involve
+//   redirecting the user to google.com.  After authorization, Google
+//   will redirect the user back to this application at /auth/google/callback
+router.get('/auth/google',
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+
+// GET /auth/google/callback
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request.  If authentication fails, the user will be redirected back to the
+//   login page.  Otherwise, the primary route function function will be called,
+//   which, in this example, will redirect the user to the home page.
+router.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/index' }),
+  function(req, res) {
+    res.render('home', { user: current_user});
+  });
+
+////////////////////////////////// Passport //////////////////////////////////
+
 router.get('/', function(req, res, next) {
   res.render('index');
+});
+
+router.get('/home', function(req, res, next) {
+  res.render('home', { user: current_user});
 });
 
 router.get('/form', function(req, res, next) {
@@ -51,6 +130,7 @@ router.post('/form', function(req, res, next){
 
   var id = '000';
   var student = new StudentModel({
+    owner: current_user.id || 'no owner',
     student_id: id,
     last_name: req.body.last_name,
     first_name: req.body.first_name,
@@ -119,15 +199,19 @@ router.post('/form', function(req, res, next){
   });
 
   student.save(function (err) {
+    sendEmail('s', req.body.first_name, req.body.last_name, student._id);
     if (err) return handleError(err);
-    res.redirect('/');
+    res.render('thankyou', { user: current_user });
   });
 });
 
 router.get('/submitted', function(req, res, next){
   db.collection("students").find().toArray(function(err, result) {
     if (err) throw err;
-    res.render('submitted', { student: result});
+    current_user_students = [];
+    result.forEach(s => {if(s.owner == current_user.id)
+      {current_user_students.push(s)}});
+    res.render('submitted', { student: current_user_students});
   });
 });
 
@@ -175,6 +259,10 @@ router.post('/student_edit', function(req, res, next){
   });
 });
 
+router.get('/thankyou', function(req, res){
+  res.render('thankyou');
+})
+
 async function updateData(id, req) {
   try {
     db.collection('students').updateOne(
@@ -211,6 +299,50 @@ async function updateData(id, req) {
     console.log(err);
   }
 
+  db.collection("students").find().toArray(function(err, result) {
+    if (err) throw err;
+    for(let i = 0; i < result.length; i++){
+      if(result[i]._id == id)
+        sendEmail('u',result[i].first_name, result[i].last_name, id)
+    }
+  });
+
+}
+
+function sendEmail(s_u, f, l, id){
+
+  var subject = ''
+  var message = ''
+
+  if(s_u == 'u'){
+    subject = 'New Registration: '+f+' '+l;
+    message = 'Registration for '+f+' '+l+' can be seen here:'+'\n';
+    subject = 'Student info updated: '+f+' '+l;
+    message = 'Update for '+f+' '+l+' can be seen here:'+'\n';
+  }
+
+  let mailTransporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'NCCS.student.register@gmail.com',
+        pass: 'aqacchwyssuwhbap'
+    }
+  });
+
+  let mailDetails = {
+    from: 'NCCS.student.register@gmail.com',
+    to: 'payton.dugas@gmail.com',
+    subject: subject,
+    html: `<h2>${message}<\h2><a href='https://form-automation-nccs.herokuapp.com/student?id=${id}'>`+f+' '+l+'</a>'
+  };
+
+  mailTransporter.sendMail(mailDetails, function(err, data) {
+    if(err) {
+        console.log(err);
+    } else {
+        console.log('Email sent successfully');
+    }
+  });
 }
 
 module.exports = router;
