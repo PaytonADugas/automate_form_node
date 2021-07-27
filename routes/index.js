@@ -40,8 +40,6 @@ const StudentModel = mongoose.model('student');
 require('../models/user.js');
 const UserModel = mongoose.model('user');
 
-var current_user = '';
-
 ////////////////////////////////// Passport //////////////////////////////////
 
 var passport = require('passport');
@@ -53,7 +51,8 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 //   profile), and invoke a callback with a user object.
 const GOOGLE_CLIENT_ID = '420648149659-dq7mkq3vh733m89otpldhqnqjn8jp43k.apps.googleusercontent.com';
 const GOOGLE_CLIENT_SECRET = 'JIXVQVfIOTlMQcGOczfSnl6R';
-const GOOGLE_REDIRECT = 'https://form-automation-nccs.herokuapp.com/auth/google/callback';
+//const GOOGLE_REDIRECT = 'https://form-automation-nccs.herokuapp.com/auth/google/callback';
+const GOOGLE_REDIRECT = 'http://localhost:3000/auth/google/callback';
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
@@ -74,11 +73,9 @@ passport.use(new GoogleStrategy({
         })
         user.save(function(){
           if(err) console.log(err);
-          current_user = profile;
           return done(err, user);
         })
       }else{
-        current_user = profile;
         return done(err, user);
       }
     })
@@ -109,7 +106,8 @@ router.get('/auth/google',
 router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/index' }),
   function(req, res) {
-    res.render('home', { user: current_user});
+    console.log(req.session)
+    res.render('home', { user: req.user});
   });
 
 ////////////////////////////////// Passport //////////////////////////////////
@@ -119,7 +117,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/home', function(req, res, next) {
-  res.render('home', { user: current_user});
+  console.log(req.user);
+  res.render('home', { user: req.user || '' });
 });
 
 router.get('/form', function(req, res, next) {
@@ -130,7 +129,7 @@ router.post('/form', function(req, res, next){
 
   var id = '000';
   var student = new StudentModel({
-    owner: current_user.id || 'no owner',
+    owner: req.user.user_id || 'no owner',
     student_id: id,
     last_name: req.body.last_name,
     first_name: req.body.first_name,
@@ -201,7 +200,7 @@ router.post('/form', function(req, res, next){
   student.save(function (err) {
     sendEmail('s', req.body.first_name, req.body.last_name, student._id);
     if (err) return handleError(err);
-    res.render('thankyou', { user: current_user });
+    res.render('thankyou', { user: req.user || '' });
   });
 });
 
@@ -209,7 +208,7 @@ router.get('/submitted', function(req, res, next){
   db.collection("students").find().toArray(function(err, result) {
     if (err) throw err;
     current_user_students = [];
-    result.forEach(s => {if(s.owner == current_user.id)
+    result.forEach(s => {if(s.owner == req.user.user_id)
       {current_user_students.push(s)}});
     res.render('submitted', { student: current_user_students});
   });

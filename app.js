@@ -4,7 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var passport = require('passport');
-
+var cookieParser = require('cookie-parser')
+var bodyParser = require('body-parser')
+var session = require('express-session');
+var MongoDBStore = require('connect-mongodb-session')(session);
+var mongoose = require('mongoose');
 
 
 var indexRouter = require('./routes/index');
@@ -12,18 +16,38 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-app.use(passport.initialize());
-app.use(passport.session());
+var store = new MongoDBStore({
+  uri: 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/store?retryWrites=true&w=majority',
+  collection: 'myStore'
+});
+
+// DATABASE Connection
+//Import the mongoose module
+var mongoose = require('mongoose');
+
+const oneDay = 1000 * 60 * 60 * 24;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }))
+app.use(bodyParser.json());
+app.use(session({
+    secret: "new_key",
+    name: 'secret_name',
+    cookie: { maxAge: oneDay },
+    store: store,
+    resave: false,
+    saveUninitialized: true,
+  }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

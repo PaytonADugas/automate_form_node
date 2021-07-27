@@ -7,7 +7,10 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "config": "^3.3.6",
     "connect-mongo": "^4.4.1",
+    "connect-mongodb-session": "^3.0.0",
     "cookie-parser": "~1.4.4",
     "cross-blob": "^3.0.0",
     "debug": "~2.6.9",
