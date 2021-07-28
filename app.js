@@ -39,7 +39,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 app.use(session({
-    secret: "new_key",
+    secret: "secret_key",
     name: 'secret_name',
     cookie: { maxAge: oneDay },
     store: store,
