@@ -1,7 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var passport = require('passport');
 var cookieParser = require('cookie-parser')
@@ -10,6 +9,8 @@ var session = require('express-session');
 var MongoDBStore = require('connect-mongodb-session')(session);
 var mongoose = require('mongoose');
 
+// Importing file-store module
+const filestore = require("session-file-store")(session)
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -17,7 +18,7 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 var store = new MongoDBStore({
-  uri: 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/store2?retryWrites=true&w=majority',
+  uri: 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/store3?retryWrites=true&w=majority',
   collection: 'myStore'
 });
 
