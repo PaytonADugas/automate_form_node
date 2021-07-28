@@ -17,7 +17,7 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 var store = new MongoDBStore({
-  uri: 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/store?retryWrites=true&w=majority',
+  uri: 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/store2?retryWrites=true&w=majority',
   collection: 'myStore'
 });
 
