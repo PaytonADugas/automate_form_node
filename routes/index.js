@@ -51,8 +51,8 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 //   profile), and invoke a callback with a user object.
 const GOOGLE_CLIENT_ID = '420648149659-dq7mkq3vh733m89otpldhqnqjn8jp43k.apps.googleusercontent.com';
 const GOOGLE_CLIENT_SECRET = 'JIXVQVfIOTlMQcGOczfSnl6R';
-const GOOGLE_REDIRECT = 'https://nccs-form-automation.herokuapp.com/auth/google/callback';
-//const GOOGLE_REDIRECT = 'http://localhost:3000/auth/google/callback';
+//const GOOGLE_REDIRECT = 'https://nccs-form-automation.herokuapp.com/auth/google/callback';
+const GOOGLE_REDIRECT = 'http://localhost:3000/auth/google/callback';
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
@@ -106,6 +106,7 @@ router.get('/auth/google',
 router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/index' }),
   function(req, res) {
+    console.log(req.session);
     res.render('home', { user: req.user});
 });
 
@@ -199,6 +200,7 @@ router.post('/form', function(req, res, next){
     HSLDA_membership_expires: '',
     notes: 'no notes',
     dateRecieved: today,
+    timeStamp: Date.now(),
     feesRecieved: 'none',
     lettersSent: 'none',
     tdap: ''
@@ -212,13 +214,25 @@ router.post('/form', function(req, res, next){
 });
 
 router.get('/submitted', function(req, res, next){
+  if(!req.session.sort)
+    req.session.sort = 'date';
   db.collection("students").find().toArray(function(err, result) {
     if (err) throw err;
     current_user_students = [];
-    result.forEach(s => {if(s.owner == req.user.user_id)
-      {current_user_students.push(s)}});
+    if(req.user.user_id == '101324339836012249103')
+      current_user_students = result;
+    else{
+      result.forEach(s => {if(s.owner == req.user.user_id)
+        {current_user_students.push(s)}});
+    }
+    var sorted_students = sort_students(req.session.sort, current_user_students);
     res.render('submitted', { student: current_user_students});
   });
+});
+
+router.post('/submitted', function(req, res, next){
+  req.session.sort = req.body.sort_type;
+  res.redirect('/submitted');
 });
 
 router.get('/student', function(req, res, next){
@@ -313,6 +327,41 @@ async function updateData(id, req) {
     }
   });
 
+}
+
+function sort_students(method, list){
+  if(method == 'first_name'){
+    list.sort(function(a, b) {
+      var nameA = a.first_name.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.first_name.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+  else if(method == 'last_name'){
+    list.sort(function(a, b) {
+      var nameA = a.last_name.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.last_name.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+  else if(method == 'date'){
+    list.sort(function(a, b) {
+      return b.timeStamp - a.timeStamp;
+    });
+  }
+  return list;
 }
 
 function sendEmail(s_u, f, l, id){

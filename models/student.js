@@ -74,6 +74,7 @@ var StudentModelSchema = new Schema({
   HSLDA_membership_expires: String,
   notes: String,
   dateRecieved: String,
+  timeStamp: Date,
   feesRecieved: String,
   lettersSent: String,
   tdap: String

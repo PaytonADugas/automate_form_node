@@ -20,7 +20,22 @@
   </head>
   <body>
     <a href='/home'>Home</a>
-    <h1>Submitted Forms</h1>
+    <br>
+    <h1 style='display: inline'>Submitted Forms</h1>
+    <div style='display: inline; float: right' class="dropdown">
+      <form method="post">
+        <div style='display: inline-block' class="">
+          <select name="sort_type" class="form-control" required>
+            <option value="date" disabled selected>Choose</option>
+            <option value="date">Date Recieved</option>
+            <option value="last_name">Last Name</option>
+            <option value="first_name">First Name</option>
+          </select>
+        </div>
+        <input style='margin-bottom: 5px;' type="submit" name='submit' class="btn btn-primary" value='sort'></input>
+      </form>
+    </div>
+    <hr>
     <table>
     <thead>
       <th>Student Name</th>
