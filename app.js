@@ -9,16 +9,13 @@ var session = require('express-session');
 var MongoDBStore = require('connect-mongodb-session')(session);
 var mongoose = require('mongoose');
 
-// Importing file-store module
-const filestore = require("session-file-store")(session)
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
 
 var store = new MongoDBStore({
-  uri: 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/store3?retryWrites=true&w=majority',
+  uri: 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/store?retryWrites=true&w=majority',
   collection: 'myStore'
 });
 
@@ -40,12 +37,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 app.use(session({
-    secret: "secret_key",
-    name: 'secret_name',
+    secret: "secret",
     cookie: { maxAge: oneDay },
     store: store,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
   }));
 app.use(passport.initialize());
 app.use(passport.session());

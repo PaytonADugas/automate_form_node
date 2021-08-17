@@ -51,8 +51,8 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 //   profile), and invoke a callback with a user object.
 const GOOGLE_CLIENT_ID = '420648149659-dq7mkq3vh733m89otpldhqnqjn8jp43k.apps.googleusercontent.com';
 const GOOGLE_CLIENT_SECRET = 'JIXVQVfIOTlMQcGOczfSnl6R';
-const GOOGLE_REDIRECT = 'https://form-automation-nccs.herokuapp.com/auth/google/callback';
-//const GOOGLE_REDIRECT = 'http://localhost:3000/auth/google/callback';
+//const GOOGLE_REDIRECT = 'https://form-automation-nccs.herokuapp.com/auth/google/callback';
+const GOOGLE_REDIRECT = 'http://localhost:3000/auth/google/callback';
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
@@ -106,9 +106,13 @@ router.get('/auth/google',
 router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/index' }),
   function(req, res) {
-    console.log(req.session)
     res.render('home', { user: req.user});
-  });
+});
+
+router.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
 
 ////////////////////////////////// Passport //////////////////////////////////
 
@@ -117,7 +121,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/home', function(req, res, next) {
-  console.log(req.session);
   res.render('home', { user: req.user || '' });
 });
 
@@ -128,8 +131,12 @@ router.get('/form', function(req, res, next) {
 router.post('/form', function(req, res, next){
 
   var id = '000';
+  var owner = 'no owner';
+  if(req.user)
+    owner = req.user.user_id;
+
   var student = new StudentModel({
-    owner: req.user.user_id || 'no owner',
+    owner: owner,
     student_id: id,
     last_name: req.body.last_name,
     first_name: req.body.first_name,
@@ -264,7 +271,7 @@ router.get('/thankyou', function(req, res){
 
 async function updateData(id, req) {
   try {
-    db.collection('students').updateOne(
+    await db.collection('students').updateOne(
       {'_id': ObjectID(id)},
       { $set: {
         age: req.body.age,
@@ -310,12 +317,10 @@ async function updateData(id, req) {
 
 function sendEmail(s_u, f, l, id){
 
-  var subject = ''
-  var message = ''
+  var subject = 'New Registration: '+f+' '+l;
+  var message = 'Registration for '+f+' '+l+' can be seen here:'+'\n';
 
   if(s_u == 'u'){
-    subject = 'New Registration: '+f+' '+l;
-    message = 'Registration for '+f+' '+l+' can be seen here:'+'\n';
     subject = 'Student info updated: '+f+' '+l;
     message = 'Update for '+f+' '+l+' can be seen here:'+'\n';
   }

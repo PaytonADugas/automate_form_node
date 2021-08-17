@@ -1,6 +1,29 @@
 // DATABASE Connection
 //Import the mongoose module
 var mongoose = require('mongoose');
+var sql = require('mysql');
+
+var server = 'aggregatesqlserver.database.windows.net'
+var database = 'AGGREGATEDEVDB'
+var username = 'sqladmin'
+var password = 'LoveYourNeighbor!'
+var driver= '{ODBC Driver 17 for SQL Server}'
+
+var con = mysql.createConnection({
+  server: server,
+  user: username,
+  password: password,
+  database: database
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  con.query("SELECT * FROM columID", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+  });
+});
+
 
 //Set up default mongoose connection
 var mongoDB = 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/student_forms?retryWrites=true&w=majority';
