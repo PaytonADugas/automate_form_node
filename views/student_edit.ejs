@@ -61,7 +61,7 @@
             <tr>
               <td>
                 <ul style="list-style-type:none">
-                  <li><b>Student ID:</b> <%=student.student_id%></li>
+                  <li><b>Student ID:</b><input id='student_id' name="student_id"></input></li>
                   <br>
                   <li><b>Name:</b> <%=student.first_name%> <%=student.last_name%></li>
                   <li><b>Username:</b> <input id='username' name="username"></input></li>
@@ -166,10 +166,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
     <script>
+      var student_id = <%- JSON.stringify(student.student_id) %>;
       var username = <%- JSON.stringify(student.username) %>;
       var password = <%- JSON.stringify(student.password) %>;
       var age = <%- JSON.stringify(student.age) %>;
       var grade = <%- JSON.stringify(student.grade) %>;
+      document.getElementById('student_id').setAttribute('value', student_id);
       document.getElementById('username').setAttribute('value', username);
       document.getElementById('password').setAttribute('value', password);
       document.getElementById('age').setAttribute('value', age);
