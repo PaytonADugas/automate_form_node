@@ -106,7 +106,6 @@ router.get('/auth/google',
 router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/index' }),
   function(req, res) {
-    console.log(req.session);
     res.render('home', { user: req.user});
 });
 
@@ -216,19 +215,22 @@ router.post('/form', function(req, res, next){
 });
 
 router.get('/submitted', function(req, res, next){
+  var username = req.user.username;
   if(!req.session.sort)
     req.session.sort = 'date';
   db.collection("students").find().toArray(function(err, result) {
     if (err) throw err;
     current_user_students = [];
-    if(req.user.user_id == '101324339836012249103')
+    if(req.user.user_id == '101324339836012249103' || req.user.user_id == '107618246632011978368'){
       current_user_students = result;
+      username = 'Admin';
+    }
     else{
       result.forEach(s => {if(s.owner == req.user.user_id)
         {current_user_students.push(s)}});
     }
     var sorted_students = sort_students(req.session.sort, current_user_students);
-    res.render('submitted', { student: current_user_students, user: req.user.username});
+    res.render('submitted', { student: current_user_students, user: username});
   });
 });
 
@@ -290,6 +292,8 @@ async function updateData(id, req) {
     await db.collection('students').updateOne(
       {'_id': ObjectID(id)},
       { $set: {
+        username: req.body.username,
+        password: req.body.password,
         age: req.body.age,
         grade: req.body.grade,
         father_name: req.body.father_name,

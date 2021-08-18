@@ -64,6 +64,8 @@
                   <li><b>Student ID:</b> <%=student.student_id%></li>
                   <br>
                   <li><b>Name:</b> <%=student.first_name%> <%=student.last_name%></li>
+                  <li><b>Username:</b> <input id='username' name="username"></input></li>
+                  <li><b>Password:</b> <input id='password' name="password"></input></li>
                   <li><b>Birth Date:</b> <%=student.birth_date%></li>
                   <li><b>Age:</b> <input id='age' name="age"></input></li>
                   <li><b>Gender:</b> <%=student.gender%></li>
@@ -164,8 +166,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
     <script>
+      var username = <%- JSON.stringify(student.username) %>;
+      var password = <%- JSON.stringify(student.password) %>;
       var age = <%- JSON.stringify(student.age) %>;
       var grade = <%- JSON.stringify(student.grade) %>;
+      document.getElementById('username').setAttribute('value', username);
+      document.getElementById('password').setAttribute('value', password);
       document.getElementById('age').setAttribute('value', age);
       //document.getElementById('grade').setAttribute('value', grade);
 
