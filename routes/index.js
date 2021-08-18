@@ -139,6 +139,8 @@ router.post('/form', function(req, res, next){
   var student = new StudentModel({
     owner: owner,
     student_id: id,
+    username: 'not set',
+    password: 'not set',
     last_name: req.body.last_name,
     first_name: req.body.first_name,
     birth_date: req.body.birth_date,
@@ -226,7 +228,7 @@ router.get('/submitted', function(req, res, next){
         {current_user_students.push(s)}});
     }
     var sorted_students = sort_students(req.session.sort, current_user_students);
-    res.render('submitted', { student: current_user_students});
+    res.render('submitted', { student: current_user_students, user: req.user.username});
   });
 });
 
@@ -384,9 +386,9 @@ function sendEmail(s_u, f, l, id){
 
   let mailDetails = {
     from: 'NCCS.student.register@gmail.com',
-    to: 'payton.dugas@gmail.com',
+    to: 'jen@northcountycs.com',
     subject: subject,
-    html: `<h2>${message}<\h2><a href='https://form-automation-nccs.herokuapp.com/student?id=${id}'>`+f+' '+l+'</a>'
+    html: `<h2>${message}<\h2><a href='https://nccs-form-automation.herokuapp.com/student?id=${id}'>`+f+' '+l+'</a>'
   };
 
   mailTransporter.sendMail(mailDetails, function(err, data) {
