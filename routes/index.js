@@ -240,13 +240,16 @@ router.post('/submitted', function(req, res, next){
 });
 
 router.get('/student', function(req, res, next){
+  var permission = false;
+  if(req.user.user_id == '101324339836012249103' || req.user.user_id == '107618246632011978368')
+    permission = true;
   var queryObject = url.parse(req.url,true).query;
   var id = queryObject.id;
   db.collection("students").find().toArray(function(err, result) {
     if (err) throw err;
     for(let i = 0; i < result.length; i++){
       if(result[i]._id == id)
-        res.render('student', { student: result[i], student_id: id});
+        res.render('student', { student: result[i], student_id: id, permission: permission});
     }
   });
 });
