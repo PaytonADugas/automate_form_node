@@ -114,6 +114,13 @@ router.get('/logout', function(req, res){
   res.redirect('/');
 });
 
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated())
+    return next();
+  else
+    res.redirect('/');
+}
+
 ////////////////////////////////// Passport //////////////////////////////////
 
 router.get('/', function(req, res, next) {
@@ -131,12 +138,16 @@ router.get('/form', function(req, res, next) {
 router.post('/form', function(req, res, next){
 
   var id = '000';
-  var owner = 'no owner';
-  if(req.user)
-    owner = req.user.user_id;
+  var owner_id = 'no owner';
+  var owner_name = 'no owner';
+  if(req.user){
+    owner_id = req.user.user_id;
+    owner_name = req.user.username;
+  }
 
   var student = new StudentModel({
-    owner: owner,
+    owner: owner_id,
+    owner_name: owner_name,
     student_id: id,
     username: 'not set',
     password: 'not set',
@@ -192,7 +203,7 @@ router.post('/form', function(req, res, next){
     change_schools_agreement: 'agreed',
     enrolment_dismissal_agreement: 'agreed',
     parent_direction_agreement: 'agreed',
-    read_agreement: req.body.read_agreement,
+    read_agreement: 'agreed',
     father_signature: req.body.father_signature,
     father_sign_date: req.body.father_sign_date,
     mother_signature: req.body.mother_signature,
@@ -239,7 +250,7 @@ router.post('/submitted', function(req, res, next){
   res.redirect('/submitted');
 });
 
-router.get('/student', function(req, res, next){
+router.get('/student', ensureAuthenticated, function(req, res, next){
   var permission = false;
   if(req.user.user_id == '101324339836012249103' || req.user.user_id == '107618246632011978368')
     permission = true;

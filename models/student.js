@@ -12,6 +12,7 @@ var Schema = mongoose.Schema;
 
 var StudentModelSchema = new Schema({
   owner: String,
+  owner_name: String,
   student_id: String,
   username: String,
   password: String,
