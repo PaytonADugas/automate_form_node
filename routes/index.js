@@ -14,6 +14,8 @@ var mongoose = require('mongoose');
 
 //Set up default mongoose connection
 var mongoDB = 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/student_forms?retryWrites=true&w=majority';
+//var mongoDB = 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/student_forms_testing?retryWrites=true&w=majority';
+
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 
 //Get the default connection
@@ -132,7 +134,7 @@ router.get('/home', function(req, res, next) {
 });
 
 router.get('/form', function(req, res, next) {
-  res.render('form', { title: 'Form' });
+  res.render('form', { last_student: 'null'});
 });
 
 router.post('/form', function(req, res, next){
@@ -208,8 +210,8 @@ router.post('/form', function(req, res, next){
     father_sign_date: req.body.father_sign_date,
     mother_signature: req.body.mother_signature,
     mother_sign_date: req.body.mother_sign_date,
-    HSLDA_membership_id: '',
-    HSLDA_membership_expires: '',
+    HSLDA_membership_id: req.body.HSLDA_membership_id,
+    HSLDA_membership_expires: req.body.HSLDA_membership_expires,
     notes: 'no notes',
     dateRecieved: today,
     timeStamp: Date.now(),
@@ -221,7 +223,11 @@ router.post('/form', function(req, res, next){
   student.save(function (err) {
     sendEmail('s', req.body.first_name, req.body.last_name, student._id);
     if (err) return handleError(err);
-    res.render('thankyou', { user: req.user || '' });
+
+    if(req.body.submit == 'submit')
+      res.render('thankyou', { user: req.user || '' });
+    else
+      res.render('form', { last_student: student });
   });
 });
 
