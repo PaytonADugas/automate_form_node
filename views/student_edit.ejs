@@ -81,6 +81,9 @@
                   <li><b>Mother's Name:</b> <input id='mother_name' name="mother_name"></input></li>
                   <li><b>Mother's Employment:</b> <input id='mother_employment' name="mother_employment"></input></li>
                   <li><b>Address:</b> <input id='family_address' name="family_address"></input></li>
+                  <li><b>City:</b> <input id='family_city' name="family_city"></input></li>
+                  <li><b>State:</b> <input id='family_state' name="family_state"></input></li>
+                  <li><b>Zip:</b> <input id='family_zip' name="family_zip"></input></li>
                   <li><b>Phone:</b> <input id='family_phone' name="family_phone"></input></li>
                   <li><b>Email:</b> <input id='family_email' name="family_email"></input></li>
                   <li><b>Student Currently Living:</b> <input id='student_living_with' name="student_living_with"></input></li>
@@ -184,7 +187,10 @@
       var father_employment = <%- JSON.stringify(student.father_employment) %>;
       var mother_name = <%- JSON.stringify(student.mother_name) %>;
       var mother_employment = <%- JSON.stringify(student.mother_employment) %>;
-      var family_address = <%- JSON.stringify(student.family_address) %>+', '+<%- JSON.stringify(student.family_city) %>+', '+<%- JSON.stringify(student.family_state) %>+', '+<%- JSON.stringify(student.family_zip) %>
+      var family_address = <%- JSON.stringify(student.family_address) %>
+      var family_city = <%- JSON.stringify(student.family_city)%>;
+      var family_state = <%- JSON.stringify(student.family_state)%>;
+      var family_zip = <%- JSON.stringify(student.family_zip)%>;
       var family_phone = <%- JSON.stringify(student.family_phone) %>;
       var family_email = <%- JSON.stringify(student.family_email) %>;
       var student_living_with = <%- JSON.stringify(student.student_living_with) %>;
@@ -195,6 +201,9 @@
       document.getElementById('mother_name').setAttribute('value', mother_name);
       document.getElementById('mother_employment').setAttribute('value', mother_employment);
       document.getElementById('family_address').setAttribute('value', family_address);
+      document.getElementById('family_city').setAttribute('value', family_city);
+      document.getElementById('family_state').setAttribute('value', family_state);
+      document.getElementById('family_zip').setAttribute('value', family_zip);
       document.getElementById('family_phone').setAttribute('value', family_phone);
       document.getElementById('family_email').setAttribute('value', family_email);
       document.getElementById('student_living_with').setAttribute('value', student_living_with);
