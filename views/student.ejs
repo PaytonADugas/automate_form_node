@@ -77,7 +77,7 @@
                   <li><b>Gender:</b> <%=student.gender%></li>
                   <li><b>Disability:</b> <%=student.disabilities%></li>
                   <li><b>Grade:</b> <%=student.grade%></li>
-                </ul>
+                  <li><b>Previous School:</b> <%=student.previous_school%>, <%=student.previous_school_mailing_address%>, <%=student.previous_school_city%>, <%=student.previous_school_state%>, <%=student.previous_school_zip%></li>
               </td>
               <td>
                 <ul style="list-style-type:none">
@@ -85,7 +85,7 @@
                   <li><b>Father's Employment:</b> <%=student.father_employment%></li>
                   <li><b>Mother's Name:</b> <%=student.mother_name%></li>
                   <li><b>Mother's Employment:</b> <%=student.mother_employment%></li>
-                  <li><b>Address:</b> <%=student.family_address%></li>
+                  <li><b>Address:</b> <%=student.family_address%>, <%=student.family_city%>, <%=student.family_state%>, <%=student.family_zip%></li>
                   <li><b>Phone:</b> <%=student.family_phone%></li>
                   <li><b>Email:</b> <%=student.family_email%></li>
                   <li><b>Student Currently Living:</b> <%=student.student_living_with%></li>
@@ -185,7 +185,7 @@
     var father_employment = <%- JSON.stringify(student.father_employment) %>;
     var mother_name = <%- JSON.stringify(student.mother_name) %>;
     var mother_employment = <%- JSON.stringify(student.mother_employment) %>;
-    var family_address = <%- JSON.stringify(student.family_address) %>;
+    var family_address = <%- JSON.stringify(student.family_address) %>+', '+<%- JSON.stringify(student.family_city) %>+', '+<%- JSON.stringify(student.family_state) %>+', '+<%- JSON.stringify(student.family_zip) %>
     var family_city = <%- JSON.stringify(student.family_city) %>;
     var family_state = <%- JSON.stringify(student.family_state) %>;
     var family_zip = <%- JSON.stringify(student.family_zip) %>;
@@ -211,7 +211,7 @@
     var mother_sign_date = <%- JSON.stringify(student.mother_sign_date) %>;
 
     // ACADEMIC RECORDS
-    var previous_school = <%- JSON.stringify(student.previous_school) %>;
+    var previous_school = <%- JSON.stringify(student.previous_school) %>+', '+<%- JSON.stringify(student.previous_school_mailing_address) %>+', '+<%- JSON.stringify(student.previous_school_city) %>+', '+<%- JSON.stringify(student.previous_school_state) %>+', '+<%- JSON.stringify(student.previous_school_zip) %>;
 
     // HSLDA INFORMATION
     var HSLDA_membership = <%- JSON.stringify(student.HSLDA_membership) %>;
@@ -223,6 +223,7 @@
     var tdap = <%- JSON.stringify(student.tdap) %>;
     var date_recieved = <%- JSON.stringify(student.dateRecieved) %>;
     var fees_recieved = <%- JSON.stringify(student.feesRecieved) %>;
+    var letters_sent = <%- JSON.stringify(student.lettersSent) %>;
 
 
       const downloadFile = (blob, fileName) => {
@@ -261,7 +262,7 @@
               'mother_employment': [mother_employment],
               'family_address': [family_address],
               'international_address': ['N/A'],
-              'family_address': [family_address+', '+family_city+', '+family_state+', '+family_zip],
+              'family_address': [family_address],
               'family_phone': [family_phone],
               'family_cell': [family_phone],
               'family_email': [family_email],
@@ -283,6 +284,7 @@
               'notes': [notes],
               'date_recieved': [date_recieved],
               'fees_recieved': [fees_recieved],
+              'letters_sent': [letters_sent],
               'previous_school': [previous_school],
               'tdap': [tdap],
             };

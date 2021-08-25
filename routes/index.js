@@ -416,6 +416,13 @@ function sendEmail(s_u, f, l, id){
     html: `<h2>${message}<\h2><a href='https://nccs-form-automation.herokuapp.com/student?id=${id}'>`+f+' '+l+'</a>'
   };
 
+  // let mailDetails = {
+  //   from: 'NCCS.student.register@gmail.com',
+  //   to: 'payton.dugas@gmail.com',
+  //   subject: subject,
+  //   html: `<h2>${message}<\h2><a href='https://nccs-form-automation.herokuapp.com/student?id=${id}'>`+f+' '+l+'</a>'
+  // };
+
   mailTransporter.sendMail(mailDetails, function(err, data) {
     if(err) {
         console.log(err);

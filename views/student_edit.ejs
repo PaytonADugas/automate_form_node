@@ -71,6 +71,7 @@
                   <li><b>Gender:</b> <%=student.gender%></li>
                   <li><b>Disability:</b> <%=student.disabilities%></li>
                   <li><b>Grade:</b><select id='grade_select' name="grade"></select></li>
+                  <li><b>Previous School:</b> <%=student.previous_school%>, <%=student.previous_school_mailing_address%>, <%=student.previous_school_city%>, <%=student.previous_school_state%>, <%=student.previous_school_zip%></li>
                 </ul>
               </td>
               <td>
@@ -118,7 +119,7 @@
                   <li><b>HSLDA Membership Expires:</b> <input id='HSLDA_membership_expires' name="HSLDA_membership_expires" ></input></li>
                   <hr>
                   <li>
-                    <b>Notes:</b> <br> <textarea name="notes" rows="8" cols="50"><%= student.notes%></textarea>
+                    <b>Notes:</b> <br> <textarea name="notes" rows="8" cols="40"><%= student.notes%></textarea>
                    </li>
                 </ul>
               </td>
@@ -132,9 +133,11 @@
               <td>
                 <ul style="list-style-type:none">
                   <li><b>Primary Teacher:</b> <input id='primary_teacher' name="primary_teacher"></input></li>
-                  <li><b>Highschool Eduication:</b> <input id='high_school_eduication' name="high_school_eduication"></input></li>
-                  <li><b>Highschool Attended:</b> Name of school</li>
+                  <li><b>Highschool Eduication:</b><%=student.high_school_eduication%></li>
+                  <li><b>Highschool Attended:</b><%=student.high_school_attended%></li>
                   <li><b>College Eduication:</b> <input id='college_eduication' name="college_eduication"></input></li>
+                  <li><b>College Attended:</b><input id='college_attended' name="college_attended"></input></li>
+                  <li><b>College Degree:</b><input id='college_degree' name="college_degree"></input></li>
                   <li><b>Teaching Experience:</b> <textarea id='list_training' name="list_training"><%=student.list_training%></textarea></li>
                 </ul>
               </td>
@@ -142,10 +145,10 @@
                 <ul style="list-style-type:none">
                   <li><b>Date Recieved:</b> <%=student.dateRecieved%></li>
                   <li>
-                    <b>Fees Recieved:</b> <br> <textarea name="feesRecieved" rows="2" cols="50"><%= student.feesRecieved%></textarea>
+                    <b>Fees Recieved:</b> <br> <textarea name="feesRecieved" rows="2" cols="40"><%= student.feesRecieved%></textarea>
                   </li>
                   <li>
-                    <b>Letters Sent:</b> <br> <textarea name="lettersSent" rows="2" cols="50"><%= student.lettersSent%></textarea>
+                    <b>Letters Sent:</b> <br> <textarea name="lettersSent" rows="2" cols="40"><%= student.lettersSent%></textarea>
                   </li>
                   <li>
                     <b>Tdap:</b> <input id='tdap' name="tdap"></input>
@@ -181,7 +184,7 @@
       var father_employment = <%- JSON.stringify(student.father_employment) %>;
       var mother_name = <%- JSON.stringify(student.mother_name) %>;
       var mother_employment = <%- JSON.stringify(student.mother_employment) %>;
-      var family_address = <%- JSON.stringify(student.family_address) %>;
+      var family_address = <%- JSON.stringify(student.family_address) %>+', '+<%- JSON.stringify(student.family_city) %>+', '+<%- JSON.stringify(student.family_state) %>+', '+<%- JSON.stringify(student.family_zip) %>
       var family_phone = <%- JSON.stringify(student.family_phone) %>;
       var family_email = <%- JSON.stringify(student.family_email) %>;
       var student_living_with = <%- JSON.stringify(student.student_living_with) %>;
@@ -199,12 +202,14 @@
       document.getElementById('family_church').setAttribute('value', family_church);
 
       var primary_teacher = <%- JSON.stringify(student.primary_teacher) %>;
-      var high_school_eduication = <%- JSON.stringify(student.high_school_eduication) %>;
       var college_eduication = <%- JSON.stringify(student.college_eduication) %>;
+      var college_attended = <%- JSON.stringify(student.college_attended) %>;
+      var college_degree = <%- JSON.stringify(student.college_degree) %>;
       var list_training = <%- JSON.stringify(student.list_training) %>;
       document.getElementById('primary_teacher').setAttribute('value', primary_teacher);
-      document.getElementById('high_school_eduication').setAttribute('value', high_school_eduication);
       document.getElementById('college_eduication').setAttribute('value', college_eduication);
+      document.getElementById('college_attended').setAttribute('value', college_attended);
+      document.getElementById('college_degree').setAttribute('value', college_degree);
       document.getElementById('list_training').setAttribute('value', list_training);
 
       var tdap = <%- JSON.stringify(student.tdap) %>;
