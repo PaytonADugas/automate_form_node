@@ -13,8 +13,8 @@ var Blob = require('node-fetch');
 var mongoose = require('mongoose');
 
 //Set up default mongoose connection
-var mongoDB = 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/student_forms?retryWrites=true&w=majority';
-//var mongoDB = 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/student_forms_testing?retryWrites=true&w=majority';
+//var mongoDB = 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/student_forms?retryWrites=true&w=majority';
+var mongoDB = 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/student_forms_testing?retryWrites=true&w=majority';
 
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -42,6 +42,9 @@ const StudentModel = mongoose.model('student');
 require('../models/user.js');
 const UserModel = mongoose.model('user');
 
+// Admin user_ids
+var admin_users = ['101324339836012249103', '107618246632011978368'];
+
 ////////////////////////////////// Passport //////////////////////////////////
 
 var passport = require('passport');
@@ -53,8 +56,8 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 //   profile), and invoke a callback with a user object.
 const GOOGLE_CLIENT_ID = '420648149659-dq7mkq3vh733m89otpldhqnqjn8jp43k.apps.googleusercontent.com';
 const GOOGLE_CLIENT_SECRET = 'JIXVQVfIOTlMQcGOczfSnl6R';
-const GOOGLE_REDIRECT = 'https://nccs-form-automation.herokuapp.com/auth/google/callback';
-//const GOOGLE_REDIRECT = 'http://localhost:3000/auth/google/callback';
+//const GOOGLE_REDIRECT = 'https://nccs-form-automation.herokuapp.com/auth/google/callback';
+const GOOGLE_REDIRECT = 'http://localhost:3000/auth/google/callback';
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
@@ -108,7 +111,7 @@ router.get('/auth/google',
 router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/index' }),
   function(req, res) {
-    res.render('home', { user: req.user});
+    res.render('home', { role: admin_users.includes(req.user.user_id), user: req.user });
 });
 
 router.get('/logout', function(req, res){
@@ -130,11 +133,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/home', function(req, res, next) {
-  res.render('home', { user: req.user || '' });
+  res.render('home', { role: admin_users.includes(req.user.user_id), user: req.user});
 });
 
 router.get('/form', function(req, res, next) {
-  res.render('form', { last_student: 'null'});
+  res.render('form', { student_number: 'null', last_student: 'null'});
 });
 
 router.post('/form', function(req, res, next){
@@ -220,14 +223,17 @@ router.post('/form', function(req, res, next){
     tdap: ''
   });
 
+  var students_left = req.body.student_number;
+  //console.log(students_left);
+
   student.save(function (err) {
     sendEmail('s', req.body.first_name, req.body.last_name, student._id);
     if (err) return handleError(err);
 
-    if(req.body.submit == 'submit')
+    if(students_left <= 1)
       res.render('thankyou', { user: req.user || '' });
     else
-      res.render('form', { last_student: student });
+      res.render('form', { student_number: students_left-1, last_student: student });
   });
 });
 
@@ -238,7 +244,7 @@ router.get('/submitted', function(req, res, next){
   db.collection("students").find().toArray(function(err, result) {
     if (err) throw err;
     current_user_students = [];
-    if(req.user.user_id == '101324339836012249103' || req.user.user_id == '107618246632011978368'){
+    if(admin_users.includes(req.user.user_id)){
       current_user_students = result;
       username = 'Admin';
     }
@@ -256,9 +262,13 @@ router.post('/submitted', function(req, res, next){
   res.redirect('/submitted');
 });
 
+router.post('/submitted', function(req, res, next){
+  res.redirect('/submitted');
+});
+
 router.get('/student', ensureAuthenticated, function(req, res, next){
   var permission = false;
-  if(req.user.user_id == '101324339836012249103' || req.user.user_id == '107618246632011978368')
+  if(admin_users.includes(req.user.user_id))
     permission = true;
   var queryObject = url.parse(req.url,true).query;
   var id = queryObject.id;
@@ -266,20 +276,14 @@ router.get('/student', ensureAuthenticated, function(req, res, next){
     if (err) throw err;
     for(let i = 0; i < result.length; i++){
       if(result[i]._id == id)
-        res.render('student', { student: result[i], student_id: id, permission: permission});
+        res.render('student', { student: result[i], student_id: id});
     }
   });
 });
 
 router.post('/student', function(req, res, next){
-  var queryObject = url.parse(req.url,true).query;
-  var id = queryObject.id;
-  db.collection("students").find().toArray(function(err, result) {
-    if (err) throw err;
-    for(let i = 0; i < result.length; i++){
-      if(result[i]._id == id)
-        res.download('marguerite-729510__340.webp');
-    }
+  delete_student(req.confirm_name).then(() => {
+    res.redirect('/submitted');
   });
 });
 
@@ -304,7 +308,7 @@ router.post('/student_edit', function(req, res, next){
 });
 
 router.get('/thankyou', function(req, res){
-  res.render('thankyou');
+  res.render('thankyou', { user: req.user || '' });
 })
 
 async function updateData(id, req) {
@@ -353,7 +357,11 @@ async function updateData(id, req) {
         sendEmail('u',result[i].first_name, result[i].last_name, id)
     }
   });
+}
 
+async function delete_student(id){
+  db.collection("students").deleteOne({'_id': ObjectID('6138374039c2c14f850aaa41')})
+  console.log(await db.collection("students").findOne({'_id': ObjectID(id)}));
 }
 
 function sort_students(method, list){

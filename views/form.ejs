@@ -30,8 +30,10 @@
         <div class="jumbotron">
           <h1 style='text-align:center'>North County Christian School Registration Form</h1>
           <br>
-          <p style='text-align:center'>To make it easier to sign up multiple students there's an option to refill the form with similar family information. <br> After filling out the first student, select "Submit and add another Student" at the bottom of the page and you'll save some time.</p>
           <form method="post">
+            <% if (student_number != 'null') {%>
+              <h3 style='text-align: center; color: red;'><b>Form for Student <%= student_number %></b></h3>
+            <% } %>
             <div class="student_information title">
               <h2> <b>Student Information</b></h2>
               <hr>
@@ -387,8 +389,31 @@
               <p class='title'>Typing in your name and date is acknowledging your agreement and compliance with the Parental Responsibility Agreement.</p>
               <p>If this is not complete enrollment will not be processed.</p>
             </div>
-            <button type="submit" name='submit' class="btn btn-primary" value='submit'>Submit</button>
-            <button type="submit" name='submit' class="btn btn-primary" value='submit_and_new_student'>Submit and add another Student</button>
+            <hr>
+            <% if (student_number == 'null') {%>
+              <label class='label'>Number of Students to register</label>
+            <% } else { %>
+              <label class='label'>Number of students left to register</label>
+            <% } %>
+            <select id='student_number' name="student_number" class="form-control">
+              <option value="0" disabled selected>Select how many students you would like to register</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+            <br>
+            <% if (student_number != 'null') { %>
+              <button type="submit" name='submit' class="btn btn-primary" value='submit'>Submit Student <% student_number %></button>
+            <% } else { %>
+              <button type="submit" name='submit' class="btn btn-primary" value='submit'>Submit Student</button>
+            <% } %>
           </form>
         </div>
       </div>
@@ -396,6 +421,9 @@
 
     <script>
       if(<%- JSON.stringify(last_student) %> != "null"){
+
+        var students_left = <%- student_number %>;
+        document.getElementById('student_number').value = students_left;
 
         // ACADEMIC INFORMATION
         var school_year = <%- JSON.stringify(last_student.school_year) %>;

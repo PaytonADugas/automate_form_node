@@ -5,7 +5,7 @@
     <title>Student</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="stylesheets/modal.css">
     <style>
 
       td{
@@ -156,11 +156,26 @@
           </table>
         </div>
         <br>
+
+        <!-- Confirm pop up window -->
+        <div id="myModal" class="modal">
+          <div class="modal-content">
+            <form method="post">
+              <h1>Drop Student</h1>
+              <hr>
+              <p>To drop the student copy and paste the ID: <b><%= student._id %></b>, to confirm.</p>
+              <input id='confirm_name' type="text" name="confirm_name" class="form-control" placeholder="Enter student id">
+              <br>
+              <button style='float: right; margin-left: 5px' id='drop_student' type="submit" name="drop_student" value='submit' class="btn btn-danger" disabled>Drop</button>
+              <button style='float: right' id='cancel_modal' type="button" name="cancel" class="btn btn-secondary">Cancel</button>
+            </form>
+          </div>
+        </div>
+        <!-- Confirm pop up window -->
         <div class="text-center">
-          <button id='pdf_button' onclick="downloadPDF()" class="btn btn-primary">Save as PDF</button>
-          <% if(permission) { %>
-          <a href='student_edit?id=<%= student_id %>'><button class="btn btn-primary" type="button">Edit</button></a>
-          <% } %>
+          <button style='float: left; margin-left: 150px' id='pdf_button' onclick="downloadPDF()" class="btn btn-primary">Save as PDF</button>
+          <button style='float: right; margin: 0px 150px 0px 5px' id='open_modal' onclick="" class="btn btn-primary btn-primary">Delete</button>
+          <a style='float: right' href='student_edit?id=<%= student_id %>'><button class="btn btn-primary" type="button">Edit</button></a>
         </div>
       </div>
     </div>
@@ -225,83 +240,108 @@
     var fees_recieved = <%- JSON.stringify(student.feesRecieved) %>;
     var letters_sent = <%- JSON.stringify(student.lettersSent) %>;
 
+    // POP UP CONFIRMATION
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("open_modal");
+    var span = document.getElementById("cancel_modal");
 
-      const downloadFile = (blob, fileName) => {
-        const link = document.createElement('a');
-        // create a blobURI pointing to our Blob
-        link.href = URL.createObjectURL(blob);
-        link.download = fileName;
-        // some browser needs the anchor to be in the doc
-        document.body.append(link);
-        link.click();
-        link.remove();
-        // in case the Blob uses a lot of memory
-        setTimeout(() => URL.revokeObjectURL(link.href), 7000);
-      };
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
 
-      function downloadPDF(){
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'PDF/Student_data_PDF.pdf', true);
-        xhr.responseType = 'arraybuffer';
-        xhr.onreadystatechange=function() {
-          if (this.readyState == 4 && this.status == 200){
-            var fields = {
-              'school_year': [school_year],
-              'student_name': [first_name+' '+last_name],
-              'student_id': [student_id],
-              'birth_date': [birth_date],
-              'age': [age],
-              'gender': [gender],
-              'disabilities': [disabilities],
-              'grade': [grade],
-              'username': ['some username'],
-              'password': ['**********'],
-              'father_name': [father_name],
-              'father_employment': [father_employment],
-              'mother_name': [mother_name],
-              'mother_employment': [mother_employment],
-              'family_address': [family_address],
-              'international_address': ['N/A'],
-              'family_address': [family_address],
-              'family_phone': [family_phone],
-              'family_cell': [family_phone],
-              'family_email': [family_email],
-              'student_living_with': [student_living_with],
-              'student_guardian': [student_guardian],
-              'family_church': [family_church],
-              'primary_teacher': [primary_teacher],
-              'high_school_eduication': [high_school_eduication],
-              'high_school_attended': [high_school_attended],
-              'college_eduication': [college_eduication],
-              'college_attended': [college_attended],
-              'college_degree': [college_degree],
-              'list_training': [list_training],
-              'father_signature': [father_signature+' '+father_sign_date],
-              'mother_signature': [mother_signature+' '+mother_sign_date],
-              'HSLDA_membership': [HSLDA_membership],
-              'HSLDA_membership_id': [HSLDA_membership_id],
-              'HSLDA_membership_expires': [HSLDA_membership_expires],
-              'notes': [notes],
-              'date_recieved': [date_recieved],
-              'fees_recieved': [fees_recieved],
-              'letters_sent': [letters_sent],
-              'previous_school': [previous_school],
-              'tdap': [tdap],
-            };
-            var filled_pdf; // Uint8Array
-            try {
-              filled_pdf = pdfform().transform(this.response, fields);
-            } catch (err) {
-              return console.log(err);
-            }
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
 
-            var blob = new Blob([filled_pdf], {type: 'application/pdf'});
-            downloadFile(blob, "myfile.pdf");
-
-          }
-        }
-        xhr.send();
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
       }
+    }
+
+    $('#confirm_name').on('input', function(){
+      if(document.getElementById('confirm_name').value == <%- JSON.stringify(student._id) %>)
+        document.getElementById('drop_student').disabled = false;
+      else
+        document.getElementById('drop_student').disabled = true;
+    });
+
+    const downloadFile = (blob, fileName) => {
+      const link = document.createElement('a');
+      // create a blobURI pointing to our Blob
+      link.href = URL.createObjectURL(blob);
+      link.download = fileName;
+      // some browser needs the anchor to be in the doc
+      document.body.append(link);
+      link.click();
+      link.remove();
+      // in case the Blob uses a lot of memory
+      setTimeout(() => URL.revokeObjectURL(link.href), 7000);
+    };
+
+    function downloadPDF(){
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'PDF/Student_data_PDF.pdf', true);
+      xhr.responseType = 'arraybuffer';
+      xhr.onreadystatechange=function() {
+        if (this.readyState == 4 && this.status == 200){
+          var fields = {
+            'school_year': [school_year],
+            'student_name': [first_name+' '+last_name],
+            'student_id': [student_id],
+            'birth_date': [birth_date],
+            'age': [age],
+            'gender': [gender],
+            'disabilities': [disabilities],
+            'grade': [grade],
+            'username': ['some username'],
+            'password': ['**********'],
+            'father_name': [father_name],
+            'father_employment': [father_employment],
+            'mother_name': [mother_name],
+            'mother_employment': [mother_employment],
+            'family_address': [family_address],
+            'international_address': ['N/A'],
+            'family_address': [family_address],
+            'family_phone': [family_phone],
+            'family_cell': [family_phone],
+            'family_email': [family_email],
+            'student_living_with': [student_living_with],
+            'student_guardian': [student_guardian],
+            'family_church': [family_church],
+            'primary_teacher': [primary_teacher],
+            'high_school_eduication': [high_school_eduication],
+            'high_school_attended': [high_school_attended],
+            'college_eduication': [college_eduication],
+            'college_attended': [college_attended],
+            'college_degree': [college_degree],
+            'list_training': [list_training],
+            'father_signature': [father_signature+' '+father_sign_date],
+            'mother_signature': [mother_signature+' '+mother_sign_date],
+            'HSLDA_membership': [HSLDA_membership],
+            'HSLDA_membership_id': [HSLDA_membership_id],
+            'HSLDA_membership_expires': [HSLDA_membership_expires],
+            'notes': [notes],
+            'date_recieved': [date_recieved],
+            'fees_recieved': [fees_recieved],
+            'letters_sent': [letters_sent],
+            'previous_school': [previous_school],
+            'tdap': [tdap],
+          };
+          var filled_pdf; // Uint8Array
+          try {
+            filled_pdf = pdfform().transform(this.response, fields);
+          } catch (err) {
+            return console.log(err);
+          }
+
+          var blob = new Blob([filled_pdf], {type: 'application/pdf'});
+          downloadFile(blob, "myfile.pdf");
+
+        }
+      }
+      xhr.send();
+    }
     </script>
   </body>
 </html>
