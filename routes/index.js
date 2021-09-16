@@ -13,8 +13,8 @@ var Blob = require('node-fetch');
 var mongoose = require('mongoose');
 
 //Set up default mongoose connection
-//var mongoDB = 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/student_forms?retryWrites=true&w=majority';
-var mongoDB = 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/student_forms_testing?retryWrites=true&w=majority';
+var mongoDB = 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/student_forms?retryWrites=true&w=majority';
+//var mongoDB = 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/student_forms_testing?retryWrites=true&w=majority';
 
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -56,8 +56,8 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 //   profile), and invoke a callback with a user object.
 const GOOGLE_CLIENT_ID = '420648149659-dq7mkq3vh733m89otpldhqnqjn8jp43k.apps.googleusercontent.com';
 const GOOGLE_CLIENT_SECRET = 'JIXVQVfIOTlMQcGOczfSnl6R';
-//const GOOGLE_REDIRECT = 'https://nccs-form-automation.herokuapp.com/auth/google/callback';
-const GOOGLE_REDIRECT = 'http://localhost:3000/auth/google/callback';
+const GOOGLE_REDIRECT = 'https://nccs-form-automation.herokuapp.com/auth/google/callback';
+//const GOOGLE_REDIRECT = 'http://localhost:3000/auth/google/callback';
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
@@ -416,19 +416,19 @@ function sendEmail(s_u, f, l, id){
     }
   });
 
-  let mailDetails = {
-    from: 'NCCS.student.register@gmail.com',
-    to: 'jen@northcountycs.com',
-    subject: subject,
-    html: `<h2>${message}<\h2><a href='https://nccs-form-automation.herokuapp.com/student?id=${id}'>`+f+' '+l+'</a>'
-  };
-
   // let mailDetails = {
   //   from: 'NCCS.student.register@gmail.com',
-  //   to: 'payton.dugas@gmail.com',
+  //   to: 'jen@northcountycs.com',
   //   subject: subject,
   //   html: `<h2>${message}<\h2><a href='https://nccs-form-automation.herokuapp.com/student?id=${id}'>`+f+' '+l+'</a>'
   // };
+
+  let mailDetails = {
+    from: 'NCCS.student.register@gmail.com',
+    to: 'payton.dugas@gmail.com',
+    subject: subject,
+    html: `<h2>${message}<\h2><a href='https://nccs-form-automation.herokuapp.com/student?id=${id}'>`+f+' '+l+'</a>'
+  };
 
   mailTransporter.sendMail(mailDetails, function(err, data) {
     if(err) {
