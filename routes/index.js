@@ -282,7 +282,7 @@ router.get('/student', ensureAuthenticated, function(req, res, next){
 });
 
 router.post('/student', function(req, res, next){
-  delete_student(req.confirm_name).then(() => {
+  delete_student(req.body.confirm_name).then(() => {
     res.redirect('/submitted');
   });
 });
@@ -360,8 +360,7 @@ async function updateData(id, req) {
 }
 
 async function delete_student(id){
-  db.collection("students").deleteOne({'_id': ObjectID('6138374039c2c14f850aaa41')})
-  console.log(await db.collection("students").findOne({'_id': ObjectID(id)}));
+  await db.collection("students").deleteOne({'_id': ObjectID(id)});
 }
 
 function sort_students(method, list){
