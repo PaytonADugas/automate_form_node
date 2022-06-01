@@ -35,21 +35,21 @@
               <h2> <b>Student Information</b></h2>
               <hr>
               <label class='label'>Student Last Name:</label>
-              <input type="text" name="last_name" class="form-control" required>
+              <input type="text" name="last_name" id="last_name" class="form-control" required>
               <label class='label'>Student First Name:</label>
-              <input type="text" name="first_name" class="form-control" required>
+              <input type="text" name="first_name"  id="first_name" class="form-control" required>
               <label class='label'>Student Birth Date:</label>
-              <input type="date" name="birth_date" class="form-control" required>
+              <input type="date" name="birth_date"  id="birth_date" class="form-control" required>
               <label class='label'>Student Age:</label>
-              <input type="text" name="age" class="form-control" required>
+              <input type="text" name="age"  id="age" class="form-control" required>
               <label class='label'>Student Gender:</label>
-              <select name="gender" class="form-control" required>
+              <select name="gender"  id="gender" class="form-control" required>
                 <option value="" disabled selected></option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
               </select>
               <label class='label'>Has student had any academic, physical and/or learning disabilities or problems?</label>
-              <select name="disabilities" class="form-control" required>
+              <select name="disabilities"  id="disabilities" class="form-control" required>
                 <option value="" disabled selected></option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
@@ -176,7 +176,7 @@
                 </div>
               </div>
               <label class='label'>Has your student ever been suspended, expelled or charged with truancy?</label>
-              <select name="previous_school_been_suspended" class="form-control" required>
+              <select name="previous_school_been_suspended"  id="previous_school_been_suspended" class="form-control" required>
                 <option value="" disabled selected></option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
@@ -288,7 +288,7 @@
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
               </select>
-              <label class='label'>HSLDA membership ID (if applicable):</label>
+              <label class='label'>HSLDA membership expiration ID (if applicable):</label>
               <input id='HSLDA_membership_id' type="text" name="HSLDA_membership_id" class="form-control">
               <label class='label'>HSLDA membership expiration date (if applicable):</label>
               <input id='HSLDA_membership_expires' type="date" name="HSLDA_membership_expires" class="form-control">
@@ -387,40 +387,50 @@
               <p>If this is not complete enrollment will not be processed.</p>
             </div>
             <hr>
-            <br>
-              <p>To make it easier to register multiple students use this toggle</p>
-              <select name="refill" class="form-control" required>
-                <option value="no" selected>No refill</option>
-                <option value="yes">Refill form</option>
-              </select>
-              <br>
-              <button type="submit" name='submit' class="btn btn-primary" value='submit'>Submit Student</button>
+              <button type="submit" name='submit' class="btn btn-primary" value='submit'>Update Student</button>
           </form>
         </div>
       </div>
     </div>
 
     <script>
-      if(<%- JSON.stringify(last_student) %> != "null"){
+      if(<%- JSON.stringify(student) %> != "null"){
 
         // ACADEMIC INFORMATION
-        var school_year = <%- JSON.stringify(last_student.school_year) %>;
+        var school_year = <%- JSON.stringify(student.school_year) %>;
         document.getElementById('school_year').value = school_year;
 
+        // STUDENT Information
+
+        var first_name = <%- JSON.stringify(student.first_name) %>;
+        var last_name = <%- JSON.stringify(student.last_name) %>;
+        var birth_date = <%- JSON.stringify(student.birth_date) %>;
+        var age = getAge(birth_date);
+        var gender = <%- JSON.stringify(student.gender) %>;
+        var disabilities = <%- JSON.stringify(student.disabilities) %>;
+        var previous_school_been_suspended = <%- JSON.stringify(student.previous_school_been_suspended) %>;
+        document.getElementById('first_name').setAttribute('value', first_name);
+        document.getElementById('last_name').setAttribute('value', last_name);
+        document.getElementById('birth_date').setAttribute('value', birth_date);
+        document.getElementById('age').setAttribute('value', age);
+        document.getElementById('gender').value = gender;
+        document.getElementById('disabilities').value = disabilities;
+        document.getElementById('previous_school_been_suspended').value = previous_school_been_suspended;
+
         // FAMILY INFORMATION
-        var father_name = <%- JSON.stringify(last_student.father_name) %>;
-        var father_employment = <%- JSON.stringify(last_student.father_employment) %>;
-        var mother_name = <%- JSON.stringify(last_student.mother_name) %>;
-        var mother_employment = <%- JSON.stringify(last_student.mother_employment) %>;
-        var family_address = <%- JSON.stringify(last_student.family_address) %>;
-        var family_city = <%- JSON.stringify(last_student.family_city) %>;
-        var family_state = <%- JSON.stringify(last_student.family_state) %>;
-        var family_zip = <%- JSON.stringify(last_student.family_zip) %>;
-        var family_phone = <%- JSON.stringify(last_student.family_phone) %>;
-        var family_email = <%- JSON.stringify(last_student.family_email) %>;
-        var student_living_with = <%- JSON.stringify(last_student.student_living_with) %>;
-        var student_guardian = <%- JSON.stringify(last_student.student_guardian) %>;
-        var family_church = <%- JSON.stringify(last_student.family_church) %>;
+        var father_name = <%- JSON.stringify(student.father_name) %>;
+        var father_employment = <%- JSON.stringify(student.father_employment) %>;
+        var mother_name = <%- JSON.stringify(student.mother_name) %>;
+        var mother_employment = <%- JSON.stringify(student.mother_employment) %>;
+        var family_address = <%- JSON.stringify(student.family_address) %>;
+        var family_city = <%- JSON.stringify(student.family_city) %>;
+        var family_state = <%- JSON.stringify(student.family_state) %>;
+        var family_zip = <%- JSON.stringify(student.family_zip) %>;
+        var family_phone = <%- JSON.stringify(student.family_phone) %>;
+        var family_email = <%- JSON.stringify(student.family_email) %>;
+        var student_living_with = <%- JSON.stringify(student.student_living_with) %>;
+        var student_guardian = <%- JSON.stringify(student.student_guardian) %>;
+        var family_church = <%- JSON.stringify(student.family_church) %>;
         document.getElementById('father_name').setAttribute('value', father_name);
         document.getElementById('father_employment').setAttribute('value', father_employment);
         document.getElementById('mother_name').setAttribute('value', mother_name);
@@ -437,13 +447,13 @@
         document.getElementById('family_church').setAttribute('value', family_church);
 
         // FACULTY INFORMATION
-        var primary_teacher = <%- JSON.stringify(last_student.primary_teacher) %>;
-        var high_school_eduication = <%- JSON.stringify(last_student.high_school_eduication) %>;
-        var high_school_attended = <%- JSON.stringify(last_student.high_school_attended) %>;
-        var college_eduication = <%- JSON.stringify(last_student.college_eduication) %>;
-        var college_attended = <%- JSON.stringify(last_student.college_attended) %>;
-        var college_degree = <%- JSON.stringify(last_student.college_degree) %>;
-        var list_training = <%- JSON.stringify(last_student.list_training) %>;
+        var primary_teacher = <%- JSON.stringify(student.primary_teacher) %>;
+        var high_school_eduication = <%- JSON.stringify(student.high_school_eduication) %>;
+        var high_school_attended = <%- JSON.stringify(student.high_school_attended) %>;
+        var college_eduication = <%- JSON.stringify(student.college_eduication) %>;
+        var college_attended = <%- JSON.stringify(student.college_attended) %>;
+        var college_degree = <%- JSON.stringify(student.college_degree) %>;
+        var list_training = <%- JSON.stringify(student.list_training) %>;
         document.getElementById('primary_teacher').setAttribute('value', primary_teacher);
         document.getElementById('high_school_eduication').value = high_school_eduication;
         document.getElementById('high_school_attended').setAttribute('value', high_school_attended);
@@ -453,14 +463,14 @@
         document.getElementById('list_training').innerHTML = list_training;
 
         // PARENT RESPONSIBILITYMENT AGREEMENT
-        var father_signature = <%- JSON.stringify(last_student.father_signature) %>;
-        var father_sign_date = <%- JSON.stringify(last_student.father_sign_date) %>;
-        var mother_signature = <%- JSON.stringify(last_student.mother_signature) %>;
-        var mother_sign_date = <%- JSON.stringify(last_student.mother_sign_date) %>;
-        document.getElementById('father_signature').setAttribute('value', father_signature);
-        document.getElementById('father_sign_date').setAttribute('value', father_sign_date);
-        document.getElementById('mother_signature').setAttribute('value', mother_signature);
-        document.getElementById('mother_sign_date').setAttribute('value', mother_sign_date);
+        // var father_signature = <%- JSON.stringify(student.father_signature) %>;
+        // var father_sign_date = <%- JSON.stringify(student.father_sign_date) %>;
+        // var mother_signature = <%- JSON.stringify(student.mother_signature) %>;
+        // var mother_sign_date = <%- JSON.stringify(student.mother_sign_date) %>;
+        // document.getElementById('father_signature').setAttribute('value', father_signature);
+        // document.getElementById('father_sign_date').setAttribute('value', father_sign_date);
+        // document.getElementById('mother_signature').setAttribute('value', mother_signature);
+        // document.getElementById('mother_sign_date').setAttribute('value', mother_sign_date);
         document.getElementById('membership_agreement').checked = true;
         document.getElementById('curriculum_agreement').checked = true;
         document.getElementById('record_keeping_agreement').checked = true;
@@ -475,14 +485,14 @@
         document.getElementById('read_agreement').checked = true;
 
         // ACADEMIC RECORDS
-        var record_permission = <%- JSON.stringify(last_student.record_permission) %>;
-        var previous_school_year = <%- JSON.stringify(last_student.previous_school_year) %>;
-        var previous_school = <%- JSON.stringify(last_student.previous_school) %>;
-        var previous_school_mailing_address = <%- JSON.stringify(last_student.previous_school_mailing_address) %>;
-        var previous_school_mailing_address2 = <%- JSON.stringify(last_student.previous_school_mailing_address2) %>;
-        var previous_school_city = <%- JSON.stringify(last_student.previous_school_city) %>;
-        var previous_school_state = <%- JSON.stringify(last_student.previous_school_state) %>;
-        var previous_school_zip = <%- JSON.stringify(last_student.previous_school_zip) %>;
+        var record_permission = <%- JSON.stringify(student.record_permission) %>;
+        var previous_school_year = <%- JSON.stringify(student.previous_school_year) %>;
+        var previous_school = <%- JSON.stringify(student.previous_school) %>;
+        var previous_school_mailing_address = <%- JSON.stringify(student.previous_school_mailing_address) %>;
+        var previous_school_mailing_address2 = <%- JSON.stringify(student.previous_school_mailing_address2) %>;
+        var previous_school_city = <%- JSON.stringify(student.previous_school_city) %>;
+        var previous_school_state = <%- JSON.stringify(student.previous_school_state) %>;
+        var previous_school_zip = <%- JSON.stringify(student.previous_school_zip) %>;
         document.getElementById('record_permission').value = record_permission;
         document.getElementById('previous_school_year').value = previous_school_year;
         document.getElementById('previous_school').setAttribute('value', previous_school);
@@ -493,13 +503,29 @@
         document.getElementById('previous_school_zip').setAttribute('value', previous_school_zip);
 
         // HSLDA INFORMATION
-        var HSLDA_membership = <%- JSON.stringify(last_student.HSLDA_membership) %>;
-        var HSLDA_membership_id = <%- JSON.stringify(last_student.HSLDA_membership_id) %>;
-        var HSLDA_membership_expires = <%- JSON.stringify(last_student.HSLDA_membership_expires) %>;
+        var HSLDA_membership = <%- JSON.stringify(student.HSLDA_membership) %>;
+        var HSLDA_membership_id = <%- JSON.stringify(student.HSLDA_membership_id) %>;
+        var HSLDA_membership_expires = <%- JSON.stringify(student.HSLDA_membership_expires) %>;
         document.getElementById('HSLDA_membership').value = HSLDA_membership;
         document.getElementById('HSLDA_membership_id').value = HSLDA_membership_id;
         document.getElementById('HSLDA_membership_expires').setAttribute('value', HSLDA_membership_expires);
       }
+
+      function getAge(dob){
+        let age_arr = dob.split('-');
+        let month = parseInt(age_arr[1]);
+        let day = parseInt(age_arr[2]);
+        let year = parseInt(age_arr[0]) - 1900;
+        let date = new Date();
+        let age = date.getYear() - year;
+        console.log(date);
+        console.log((date.getMonth()))
+        if(parseInt(date.getMonth())+1 < month ||
+        (month == parseInt(date.getMonth())+1 && parseInt(date.getDate()) < day))
+          age--;
+        return age;
+      }
+
     </script>
 
   </body>
