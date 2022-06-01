@@ -13,8 +13,8 @@ var Blob = require('node-fetch');
 var mongoose = require('mongoose');
 
 //Set up default mongoose connection
-//var mongoDB = 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/student_forms?retryWrites=true&w=majority';
-var mongoDB = 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/student_forms_testing?retryWrites=true&w=majority';
+var mongoDB = 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/student_forms?retryWrites=true&w=majority';
+//var mongoDB = 'mongodb+srv://PaytonADugas:M5x1DR9TeUGRBbt5@nccs.tl9mm.mongodb.net/student_forms_testing?retryWrites=true&w=majority';
 
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -43,7 +43,7 @@ require('../models/user.js');
 const UserModel = mongoose.model('user');
 
 // Admin user_ids
-var admin_users = ['101324339836012249103', '107618246632011978368'];
+var admin_users = ['101324339836012249103', '107618246632011978368', '110031149422602544799'];
 
 ////////////////////////////////// Passport //////////////////////////////////
 
@@ -111,6 +111,8 @@ router.get('/auth/google',
 router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/index' }),
   function(req, res) {
+    console.log("THIS IS THE USER ID");
+    console.log(req.user.user_id);
     res.render('home', { role: admin_users.includes(req.user.user_id), user: req.user });
 });
 
@@ -129,11 +131,49 @@ function ensureAuthenticated(req, res, next) {
 ////////////////////////////////// Passport //////////////////////////////////
 
 router.get('/', function(req, res, next) {
+  console.log('this is the index');
   res.render('index');
 });
 
 router.get('/home', function(req, res, next) {
   res.render('home', { role: admin_users.includes(req.user.user_id), user: req.user});
+});
+
+router.get('/selectStudent', function(req, res, next) {
+  var username = req.user.username;
+  if(!req.session.sort)
+    req.session.sort = 'date';
+  db.collection("students").find().toArray(function(err, result) {
+    if (err) throw err;
+    current_user_students = [];
+    if(admin_users.includes(req.user.user_id)){
+      current_user_students = result;
+      username = 'Admin';
+    }
+    else{
+      result.forEach(s => {if(s.owner == req.user.user_id)
+        {current_user_students.push(s)}});
+    }
+    var sorted_students = sort_students(req.session.sort, current_user_students);
+    res.render('studentsToUpdate', { students: current_user_students, user: username });
+  });
+});
+
+router.get('/updateForm', ensureAuthenticated, function(req, res, next) {
+  var permission = false;
+  if(admin_users.includes(req.user.user_id))
+    permission = true;
+  var queryObject = url.parse(req.url,true).query;
+  var id = queryObject.id;
+  db.collection("students").find().toArray(function(err, result) {
+    if (err) throw err;
+    for(let i = 0; i < result.length; i++){
+      if(result[i]._id == id){
+        console.log(result[i])
+        res.render('updateForm', { student : result[i], student_number : 'null'});
+      }
+    }
+  });
 });
 
 router.get('/form', function(req, res, next) {
@@ -253,7 +293,7 @@ router.get('/submitted', function(req, res, next){
         {current_user_students.push(s)}});
     }
     var sorted_students = sort_students(req.session.sort, current_user_students);
-    res.render('submitted', { student: current_user_students, user: username});
+    res.render('submitted', { students: current_user_students, user: username});
   });
 });
 

@@ -4,7 +4,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Submitted</title>
+    <title>Your Students</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
 
     <style>
@@ -22,7 +22,7 @@
     <a href='/home'>Home</a>
     <br>
     <h1 style='display: inline'>Registered Students for <%= user %></h1>
-    <div style='display: inline; float: right' class="dropdown">
+    <!-- <div style='display: inline; float: right' class="dropdown">
       <form method="post">
         <div style='display: inline-block' class="">
           <select name="sort_type" class="form-control" required>
@@ -34,7 +34,7 @@
         </div>
         <input style='margin-bottom: 5px;' type="submit" name='submit' class="btn btn-primary" value='sort'></input>
       </form>
-    </div>
+    </div> -->
     <hr>
     <table>
     <thead>
@@ -43,12 +43,12 @@
       <th></th>
       <th></th>
     </thead>
-    <% for (var i =0; i <student.length;  i++ ) { %>
+    <% for (var i =0; i <students.length;  i++ ) { %>
       <%var color = 'background-color:#e8e8e8';%>
       <tr>
         <td style=color><%=students[i].first_name%> <%=students[i].last_name%></td>
         <td><%=students[i].student_id%></td>
-        <td><a href="student?id=<%=students[i]._id%>" class='btn btn-link btn-sm'>select</a></td>
+        <td><a href="updateForm?id=<%=students[i]._id%>" class='btn btn-link btn-sm'>update</a></td>
       </tr>
     <% } %>
   </table>

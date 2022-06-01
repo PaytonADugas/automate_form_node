@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Form</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <style>
+      .label{
+        margin-top: 20px;
+      }
+      .jumbotron{
+        margin-top: 50px;
+      }
+      .title{
+        margin-top: 70px;
+      }
+      h2{
+        margin: 20px;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div class="form-group">
+      <div class="container">
+        <div class="jumbotron">
+          <h1 style='text-align:center'>North County Christian School Registration Form</h1>
+          <br>
+          <form method="post">
+            <% if (student_number != 'null') {%>
+              <h3 style='text-align: center; color: red;'><b>Form for Student <%= student_number %></b></h3>
+            <% } %>
+            <div class="student_information title">
+              <h2> <b>Student Information</b></h2>
+              <hr>
+              <label class='label'>Student Last Name:</label>
+              <input type="text" name="last_name" id="last_name" class="form-control" required>
+              <label class='label'>Student First Name:</label>
+              <input type="text" name="first_name"  id="first_name" class="form-control" required>
+              <label class='label'>Student Birth Date:</label>
+              <input type="date" name="birth_date"  id="birth_date" class="form-control" required>
+              <label class='label'>Student Age:</label>
+              <input type="text" name="age"  id="age" class="form-control" required>
+              <label class='label'>Student Gender:</label>
+              <select name="gender"  id="gender" class="form-control" required>
+                <option value="" disabled selected></option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+              <label class='label'>Has student had any academic, physical and/or learning disabilities or problems?</label>
+              <select name="disabilities"  id="disabilities" class="form-control" required>
+                <option value="" disabled selected></option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+
+            <div class="academic_information title">
+              <h2><b>Academic Information</b></h2>
+              <hr>
+              <label class='label'>School Year:</label>
+              <select id='school_year' name="school_year" class="form-control" required>
+                <option value="" disabled selected></option>
+                <option value="2021/2022">2021-2022</option>
+              </select>
+              <label class='label'>Grade</label>
+              <select name="grade" class="form-control" required>
+                <option value="" disabled selected></option>
+                <option value="k5">k5</option>
+                <option value="1st">1st</option>
+                <option value="2nd">2nd</option>
+                <option value="3rd">3rd</option>
+                <option value="4th">4th</option>
+                <option value="5th">5th</option>
+                <option value="6th">6th</option>
+                <option value="7th">7th</option>
+                <option value="8th">8th</option>
+                <option value="9th">9th</option>
+                <option value="10th">10th</option>
+                <option value="11th">11th</option>
+                <option value="12th">12th</option>
+              </select>
+            </div>
+            <div class="academic_records title">
+              <h2> <b>Academic Records</b></h2>
+              <hr>
+              <label class='label'>We give permission to have our student's record requested from their previous school?</label>
+              <select name="record_permission" id='record_permission' class="form-control" required>
+                <option value="" disabled selected></option>
+                <option value="yes">Yes</option>
+              </select>
+              <label class='label'>Previous School Year:</label>
+              <select name="previous_school_year" id='previous_school_year' class="form-control" required>
+                <option value="" disabled selected></option>
+                <option value="public">Public</option>
+                <option value="private">Private</option>
+                <option value="homeschooled">Homeschooled</option>
+              </select>
+              <p>If homeschooled, you will need to send NCCS your student’s academic records, a copy of their birth certificate, a copy of up to date immunization record.</p>
+              <label class='label'>Previous School:</label>
+              <input type="text" name="previous_school" id='previous_school' class="form-control" required>
+              <div class="form-group">
+                <label class='label' for="inputAddress">Previous School Mailing Address:</label>
+                <input type="text" class="form-control" name="previous_school_mailing_address" id="previous_school_mailing_address" placeholder="1234 Main St">
+              </div>
+              <div class="form-group">
+                <label for="inputAddress2">Address 2</label>
+                <input type="text" name='previous_school_mailing_address2' class="form-control" id="previous_school_mailing_address2" placeholder="Apartment, studio, or floor">
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputCity">City</label>
+                  <input type="text" name="previous_school_city" class="form-control" id="previous_school_city">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputState">State</label>
+                  <select id="previous_school_state" name='previous_school_state' class="form-control">
+                    <option value="" disabled selected>Choose...</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="DC">District Of Columbia</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="inputZip">Zip</label>
+                  <input type="text" name='previous_school_zip' class="form-control" id="previous_school_zip">
+                </div>
+              </div>
+              <label class='label'>Has your student ever been suspended, expelled or charged with truancy?</label>
+              <select name="previous_school_been_suspended"  id="previous_school_been_suspended" class="form-control" required>
+                <option value="" disabled selected></option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div class="family_information title">
+              <h2> <b>Family Information</b></h2>
+              <hr>
+              <label class='label'>Father's Full Name:</label>
+              <input id='father_name' type="text" name="father_name" class="form-control" required>
+              <label class='label'>Father's Place of Employment:</label>
+              <input id='father_employment' type="text" name="father_employment" class="form-control" required>
+              <label class='label'>Mother's Full Name:</label>
+              <input id='mother_name' type="text" name="mother_name" class="form-control" required>
+              <label class='label'>Mother's Place of Employment:</label>
+              <input id='mother_employment' type="text" name="mother_employment" class="form-control" required>
+              <div class="form-group">
+                <label class='label' for="inputAddress">Family Street Address:</label>
+                <input type="text" class="form-control" name="family_address" id="family_address" placeholder="1234 Main St">
+              </div>
+              <div class="form-group">
+                <label for="inputAddress2">Address 2</label>
+                <input type="text" name='family_address2' class="form-control" id="family_address2" placeholder="Apartment, studio, or floor">
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputCity">City</label>
+                  <input type="text" name="family_city" class="form-control" id="family_city">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputState">State</label>
+                  <select id="family_state" name='family_state' class="form-control">
+                    <option value="" disabled selected>Choose...</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="DC">District Of Columbia</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="inputZip">Zip</label>
+                  <input type="text" name='family_zip' class="form-control" id="family_zip">
+                </div>
+              </div>
+              <label class='label'>Phone:</label>
+              <input id='family_phone' type="text" name="family_phone" class="form-control" required>
+              <label class='label'>Email:</label>
+              <input id='family_email' type="text" name="family_email" class="form-control" required>
+              <label class='label'>With whom is the student currently living?</label>
+              <input id='student_living_with' type="text" name="student_living_with" class="form-control" required>
+              <label class='label'>Whos is the student's legal guardian?</label>
+              <input id='student_guardian' type="text" name="student_guardian" class="form-control" required>
+              <label class='label'>Church family attends:</label>
+              <input id='family_church' type="text" name="family_church" class="form-control" required>
+            </div>
+            <div class="HSLDA_information title">
+              <h2> <b>HSLDA Information</b></h2>
+              <hr>
+              <label class='label'>Do you hold Home School Legal Defense Association membership?</label>
+              <select id='HSLDA_membership' name="HSLDA_membership" class="form-control" required>
+                <option value="" disabled selected></option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+              <label class='label'>HSLDA membership expiration ID (if applicable):</label>
+              <input id='HSLDA_membership_id' type="text" name="HSLDA_membership_id" class="form-control">
+              <label class='label'>HSLDA membership expiration date (if applicable):</label>
+              <input id='HSLDA_membership_expires' type="date" name="HSLDA_membership_expires" class="form-control">
+            </div>
+            <div class="faculty_information title">
+              <h2> <b>Faculty Information</b></h2>
+              <hr>
+              <label class='label'>Who will be the primary teacher, at home with the student, during school hours?</label>
+              <input id='primary_teacher' type="text" name="primary_teacher" class="form-control" required>
+              <label class='label'>High School Eduication?</label>
+              <select id='high_school_eduication' name="high_school_eduication" class="form-control" required>
+                <option value="" disabled selected></option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+              <label class='label'>High School Attended (if selected yes):</label>
+              <input id='high_school_attended' type="text" name="high_school_attended" class="form-control">
+              <label class='label'>College Eduication?</label>
+              <select id='college_eduication' name="college_eduication" class="form-control" required>
+                <option value="" disabled selected></option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+              <label class='label'>College Attended (if selected yes):</label>
+              <input id='college_attended' type="text" name="college_attended" class="form-control">
+              <label class='label'>College Degree (if selected yes):</label>
+              <input id='college_degree' type="text" name="college_degree" class="form-control">
+              <label class='label'>List teacher training or other education related training:</label>
+              <textarea id='list_training' type="text" name="list_training" class="form-control" required></textarea>
+            </div>
+            <div class="parental-responsibility_agreement title">
+              <h2> <b>Parental Responsibility Agreement</b></h2>
+              <p>North County Christian School requires both parents to agree to and follow through with these responsibilities in teaching their children at home. Read through this agreement, sign & date.</p>
+              <hr>
+              <label class='label'>We will apply to HSLDA for membership OR we will renew our HSLDA membership each year that we are enrolled in NCCS.</label>
+              <br>
+              <input id='membership_agreement' type="checkbox" value name="membership_agreement" required> Agree</input>
+              <br>
+              <label class='label'>We will provide curriculum for student in compliance with state guidelines for subjects to be taught. </label>
+              <br>
+              <input id='curriculum_agreement' type="checkbox" value name="curriculum_agreement" required> Agree</input>
+              <br>
+              <label class='label'>We understand the importance of accurate record keeping and agree to maintain a daily lesson plan book that records what was accomplished in each subject and we will keep these records for, at least, a two year period.</label>
+              <br>
+              <input id='record_keeping_agreement' type="checkbox" value name="record_keeping_agreement" required> Agree</input>
+              <br>
+              <label class='label'>We understand it is the parent’s responsibility to provide curriculum, do lesson planning, maintain a record of daily work, evaluate our student’s progress and that all decisions relating to educational philosophy and methods, style, selection of books, teaching material and curriculum, grading and evaluations are our responsibility. Therefore, the outcome of your student’s education rests on your efforts and that of your students.</label>
+              <br>
+              <input id='parent_participation_agreement' type="checkbox" value name="parent_participation_agreement" required> Agree</input>
+              <br>
+              <label class='label'>One parent will be at home during school hours and teaching our student in an orderly and systematic manner, at least 180 days of the year. </label>
+              <br>
+              <input id='parent_home_agreement' type="checkbox" value name="parent_home_agreement" required> Agree</input>
+              <br>
+              <label class='label'>We will enter attendance and grades at the times specified on the school calendar, realizing that timely attendance reporting is absolutely essential in an independent study program. </label>
+              <br>
+              <input id='attendance_grades_agreement' type="checkbox" value name="attendance_grades_agreement" required> Agree</input>
+              <br>
+              <label class='label'>We will post our elementary student’s proposed course of study and/or high school student’s course description on their report card page at the beginning of the school year.</label>
+              <br>
+              <input id='course_of_study_course_description_agreement' type="checkbox" value name="course_of_study_course_description_agreement" required> Agree</input>
+              <br>
+              <label class='label'>We understand that the School Calendar, NCCS Handbook, and the NCCS High School Manual have important dates and information that we need to know in order to work responsibly with NCCS. We agree to read through the Handbook/Manual and review the school calendar and acquainted ourselves with the school services and our responsibilities.</label>
+              <br>
+              <input id='read_handbook_agreement' type="checkbox" value name="read_handbook_agreement" required> Agree</input>
+              <br>
+              <label class='label'>We will notify NCCS if and when we enroll our student in another school as a matter of courtesy. </label>
+              <br>
+              <input id='change_schools_agreement' type="checkbox" value name="change_schools_agreement" required> Agree</input>
+              <br>
+              <label class='label'>We realize that our student will be dismissed from enrollment if: 1) We fail to do our record keeping in accordance with the NCCS Handbook. 2) We fail to comply with Parental Responsibility Agreement in any way. </label>
+              <br>
+              <input id='enrolment_dismissal_agreement' type="checkbox" value name="enrolment_dismissal_agreement" required> Agree</input>
+              <br>
+              <label class='label'>Although we believe it is the parent’s responsibility to direct their student’s education we have policies that may conflict with some family’s strategy. We feel these policies help support the integrity of North County Christian School. We will attempt to accommodate each parent’s philosophy and goals as much as possible. </label>
+              <br>
+              <input id='parent_direction_agreement' type="checkbox" value name="parent_direction_agreement" required> Agree</input>
+              <br>
+            </div>
+            <div class="signature title">
+              <h2> <b>Signature</b></h2>
+              <hr>
+              <label class='label'>We have read through the Parental Responsibility Agreement, understand the requirements that pertain to us and our student, and agree to comply with them while we have our student enrolled in NCCS.</label>
+              <br>
+              <input id='read_agreement' type="checkbox" value name="read_agreement"> Agree</input>
+              <br>
+              <label class='label'>Father's Signature:</label>
+              <input id='father_signature' type="text" name="father_signature" class="form-control" required>
+              <label class='label'>Date</label>
+              <input id='father_sign_date' type="date" name="father_sign_date" class="form-control" required>
+              <label class='label'>Mother's Signature</label>
+              <input id='mother_signature' type="text" name="mother_signature" class="form-control" required>
+              <label class='label'>Date</label>
+              <input id='mother_sign_date' type="date" name="mother_sign_date" class="form-control" required>
+              <p class='title'>Typing in your name and date is acknowledging your agreement and compliance with the Parental Responsibility Agreement.</p>
+              <p>If this is not complete enrollment will not be processed.</p>
+            </div>
+            <hr>
+            <% if (student_number == 'null') {%>
+              <label class='label'>Number of Students to register</label>
+            <% } else { %>
+              <label class='label'>Number of students left to register</label>
+            <% } %>
+            <select id='student_number' name="student_number" class="form-control">
+              <option value="0" disabled selected>Select how many students you would like to register</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+            <br>
+            <% if (student_number != 'null') { %>
+              <button type="submit" name='submit' class="btn btn-primary" value='submit'>Submit Student <% student_number %></button>
+            <% } else { %>
+              <button type="submit" name='submit' class="btn btn-primary" value='submit'>Submit Student</button>
+            <% } %>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      if(<%- JSON.stringify(student) %> != "null"){
+
+        // ACADEMIC INFORMATION
+        var school_year = <%- JSON.stringify(student.school_year) %>;
+        document.getElementById('school_year').value = school_year;
+
+        // STUDENT Information
+
+        var first_name = <%- JSON.stringify(student.first_name) %>;
+        var last_name = <%- JSON.stringify(student.last_name) %>;
+        var birth_date = <%- JSON.stringify(student.birth_date) %>;
+        var age = <%- JSON.stringify(student.age) %>;
+        var gender = <%- JSON.stringify(student.gender) %>;
+        var disabilities = <%- JSON.stringify(student.disabilities) %>;
+        var previous_school_been_suspended = <%- JSON.stringify(student.previous_school_been_suspended) %>;
+        document.getElementById('first_name').setAttribute('value', first_name);
+        document.getElementById('last_name').setAttribute('value', last_name);
+        document.getElementById('birth_date').setAttribute('value', birth_date);
+        document.getElementById('age').setAttribute('value', age);
+        document.getElementById('gender').setAttribute('value', gender);
+        document.getElementById('disabilities').setAttribute('value', disabilities);
+        document.getElementById('previous_school_been_suspended').setAttribute('value', previous_school_been_suspended);
+
+        // FAMILY INFORMATION
+        var father_name = <%- JSON.stringify(student.father_name) %>;
+        var father_employment = <%- JSON.stringify(student.father_employment) %>;
+        var mother_name = <%- JSON.stringify(student.mother_name) %>;
+        var mother_employment = <%- JSON.stringify(student.mother_employment) %>;
+        var family_address = <%- JSON.stringify(student.family_address) %>;
+        var family_city = <%- JSON.stringify(student.family_city) %>;
+        var family_state = <%- JSON.stringify(student.family_state) %>;
+        var family_zip = <%- JSON.stringify(student.family_zip) %>;
+        var family_phone = <%- JSON.stringify(student.family_phone) %>;
+        var family_email = <%- JSON.stringify(student.family_email) %>;
+        var student_living_with = <%- JSON.stringify(student.student_living_with) %>;
+        var student_guardian = <%- JSON.stringify(student.student_guardian) %>;
+        var family_church = <%- JSON.stringify(student.family_church) %>;
+        document.getElementById('father_name').setAttribute('value', father_name);
+        document.getElementById('father_employment').setAttribute('value', father_employment);
+        document.getElementById('mother_name').setAttribute('value', mother_name);
+        document.getElementById('mother_employment').setAttribute('value', mother_employment);
+        document.getElementById('family_address').setAttribute('value', family_address);
+        document.getElementById('family_city').setAttribute('value', family_city);
+        document.getElementById('family_state').value = family_state;
+        document.getElementById('family_zip').setAttribute('value', family_zip);
+        document.getElementById('family_address').setAttribute('value', family_address);
+        document.getElementById('family_phone').setAttribute('value', family_phone);
+        document.getElementById('family_email').setAttribute('value', family_email);
+        document.getElementById('student_living_with').setAttribute('value', student_living_with);
+        document.getElementById('student_guardian').setAttribute('value', student_guardian);
+        document.getElementById('family_church').setAttribute('value', family_church);
+
+        // FACULTY INFORMATION
+        var primary_teacher = <%- JSON.stringify(student.primary_teacher) %>;
+        var high_school_eduication = <%- JSON.stringify(student.high_school_eduication) %>;
+        var high_school_attended = <%- JSON.stringify(student.high_school_attended) %>;
+        var college_eduication = <%- JSON.stringify(student.college_eduication) %>;
+        var college_attended = <%- JSON.stringify(student.college_attended) %>;
+        var college_degree = <%- JSON.stringify(student.college_degree) %>;
+        var list_training = <%- JSON.stringify(student.list_training) %>;
+        document.getElementById('primary_teacher').setAttribute('value', primary_teacher);
+        document.getElementById('high_school_eduication').value = high_school_eduication;
+        document.getElementById('high_school_attended').setAttribute('value', high_school_attended);
+        document.getElementById('college_eduication').value = college_eduication;
+        document.getElementById('college_attended').setAttribute('value', college_attended);
+        document.getElementById('college_degree').setAttribute('value', college_degree);
+        document.getElementById('list_training').innerHTML = list_training;
+
+        // PARENT RESPONSIBILITYMENT AGREEMENT
+        var father_signature = <%- JSON.stringify(student.father_signature) %>;
+        var father_sign_date = <%- JSON.stringify(student.father_sign_date) %>;
+        var mother_signature = <%- JSON.stringify(student.mother_signature) %>;
+        var mother_sign_date = <%- JSON.stringify(student.mother_sign_date) %>;
+        document.getElementById('father_signature').setAttribute('value', father_signature);
+        document.getElementById('father_sign_date').setAttribute('value', father_sign_date);
+        document.getElementById('mother_signature').setAttribute('value', mother_signature);
+        document.getElementById('mother_sign_date').setAttribute('value', mother_sign_date);
+        document.getElementById('membership_agreement').checked = true;
+        document.getElementById('curriculum_agreement').checked = true;
+        document.getElementById('record_keeping_agreement').checked = true;
+        document.getElementById('parent_participation_agreement').checked = true;
+        document.getElementById('parent_home_agreement').checked = true;
+        document.getElementById('attendance_grades_agreement').checked = true;
+        document.getElementById('course_of_study_course_description_agreement').checked = true;
+        document.getElementById('read_handbook_agreement').checked = true;
+        document.getElementById('change_schools_agreement').checked = true;
+        document.getElementById('enrolment_dismissal_agreement').checked = true;
+        document.getElementById('parent_direction_agreement').checked = true;
+        document.getElementById('read_agreement').checked = true;
+
+        // ACADEMIC RECORDS
+        var record_permission = <%- JSON.stringify(student.record_permission) %>;
+        var previous_school_year = <%- JSON.stringify(student.previous_school_year) %>;
+        var previous_school = <%- JSON.stringify(student.previous_school) %>;
+        var previous_school_mailing_address = <%- JSON.stringify(student.previous_school_mailing_address) %>;
+        var previous_school_mailing_address2 = <%- JSON.stringify(student.previous_school_mailing_address2) %>;
+        var previous_school_city = <%- JSON.stringify(student.previous_school_city) %>;
+        var previous_school_state = <%- JSON.stringify(student.previous_school_state) %>;
+        var previous_school_zip = <%- JSON.stringify(student.previous_school_zip) %>;
+        document.getElementById('record_permission').value = record_permission;
+        document.getElementById('previous_school_year').value = previous_school_year;
+        document.getElementById('previous_school').setAttribute('value', previous_school);
+        document.getElementById('previous_school_mailing_address').setAttribute('value', previous_school_mailing_address);
+        document.getElementById('previous_school_mailing_address2').setAttribute('value', previous_school_mailing_address2);
+        document.getElementById('previous_school_city').setAttribute('value', previous_school_city);
+        document.getElementById('previous_school_state').value = previous_school_state;
+        document.getElementById('previous_school_zip').setAttribute('value', previous_school_zip);
+
+        // HSLDA INFORMATION
+        var HSLDA_membership = <%- JSON.stringify(student.HSLDA_membership) %>;
+        var HSLDA_membership_id = <%- JSON.stringify(student.HSLDA_membership_id) %>;
+        var HSLDA_membership_expires = <%- JSON.stringify(student.HSLDA_membership_expires) %>;
+        document.getElementById('HSLDA_membership').value = HSLDA_membership;
+        document.getElementById('HSLDA_membership_id').value = HSLDA_membership_id;
+        document.getElementById('HSLDA_membership_expires').setAttribute('value', HSLDA_membership_expires);
+      }
+    </script>
+
+  </body>
+</html>
