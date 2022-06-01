@@ -538,7 +538,7 @@ function sendEmail(s_u, f, l, id){
     from: 'NCCS.student.register@gmail.com',
     to: 'jen@northcountycs.com',
     subject: subject,
-    html: `<h2>${message}<\h2><a href='https://nccs-form-automation.herokuapp.com/student?id=${id}'>`+f+' '+l+'</a>'
+    html: `<h2>${message}<\h2><a href='https://nccsregistration.herokuapp.com/student?id=${id}'>`+f+' '+l+'</a>'
   };
 
   // let mailDetails = {
