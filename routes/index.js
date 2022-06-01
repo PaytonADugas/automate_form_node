@@ -169,19 +169,34 @@ router.get('/updateForm', ensureAuthenticated, function(req, res, next) {
     if (err) throw err;
     for(let i = 0; i < result.length; i++){
       if(result[i]._id == id){
-        console.log(result[i])
-        res.render('updateForm', { student : result[i], student_number : 'null'});
+        res.render('updateForm', { student : result[i]});
       }
     }
   });
 });
 
+router.post('/updateForm', function(req, res, next){
+  var queryObject = url.parse(req.url,true).query;
+  var id = queryObject.id;
+  updateStudentFull(id, req).then(() => {
+    res.redirect('/selectStudent');
+  });
+});
+
 router.get('/form', function(req, res, next) {
-  res.render('form', { student_number: 'null', last_student: 'null'});
+  res.render('form', { last_student: 'null'});
 });
 
 router.post('/form', function(req, res, next){
+  saveStudent(req);
 
+  if(req.body.refil == 'yes')
+    res.render('thankyou', { user: req.user || '' });
+  else
+    res.render('form', { last_student: student });
+});
+
+function saveStudent(){
   var id = '000';
   var owner_id = 'no owner';
   var owner_name = 'no owner';
@@ -263,19 +278,11 @@ router.post('/form', function(req, res, next){
     tdap: ''
   });
 
-  var students_left = req.body.student_number;
-  //console.log(students_left);
-
   student.save(function (err) {
     sendEmail('s', req.body.first_name, req.body.last_name, student._id);
     if (err) return handleError(err);
-
-    if(students_left <= 1)
-      res.render('thankyou', { user: req.user || '' });
-    else
-      res.render('form', { student_number: students_left-1, last_student: student });
   });
-});
+}
 
 router.get('/submitted', function(req, res, next){
   var username = req.user.username;
@@ -350,6 +357,77 @@ router.post('/student_edit', function(req, res, next){
 router.get('/thankyou', function(req, res){
   res.render('thankyou', { user: req.user || '' });
 })
+
+async function updateStudentFull(id, req) {
+  try {
+    await db.collection('students').updateOne(
+      {'_id': ObjectID(id)},
+      { $set: {
+        last_name: req.body.last_name,
+        first_name: req.body.first_name,
+        birth_date: req.body.birth_date,
+        age: req.body.age,
+        gender: req.body.gender,
+        disabilities: req.body.disabilities,
+        school_year: req.body.school_year,
+        grade: req.body.grade,
+        record_permission: req.body.record_permission,
+        previous_school_year: req.body.previous_school_year,
+        previous_school: req.body.previous_school,
+        previous_school_mailing_address: req.body.previous_school_mailing_address,
+        previous_school_mailing_address2: req.body.previous_school_mailing_address2,
+        previous_school_city: req.body.previous_school_city,
+        previous_school_state: req.body.previous_school_state,
+        previous_school_zip: req.body.previous_school_zip,
+        previous_school_been_suspended: req.body.previous_school_been_suspended,
+        father_name: req.body.father_name,
+        father_employment: req.body.father_employment,
+        mother_name: req.body.mother_name,
+        mother_employment: req.body.mother_employment,
+        family_address: req.body.family_address,
+        family_address2: req.body.family_address2,
+        family_city: req.body.family_city,
+        family_state: req.body.family_state,
+        family_zip: req.body.family_zip,
+        family_phone: req.body.family_phone,
+        family_email: req.body.family_email,
+        student_living_with: req.body.student_living_with,
+        student_guardian: req.body.student_guardian,
+        family_church: req.body.family_church,
+        HSLDA_membership: req.body.HSLDA_membership,
+        HSLDA_membership_id: req.body.HSLDA_membership_id,
+        HSLDA_membership_expires: req.body.HSLDA_membership_expires,
+        primary_teacher: req.body.primary_teacher,
+        high_school_eduication: req.body.high_school_eduication,
+        high_school_attended: req.body.high_school_attended,
+        college_eduication: req.body.college_eduication,
+        college_attended: req.body.college_attended,
+        college_degree: req.body.college_degree,
+        list_training: req.body.list_training,
+        membership_agreement: 'agreed',
+        curriculum_agreement: 'agreed',
+        record_keeping_agreement: 'agreed',
+        parent_participation_agreement: 'agreed',
+        parent_home_agreement: 'agreed',
+        attendance_grades_agreement: 'agreed',
+        course_of_study_course_description_agreement: 'agreed',
+        read_handbook_agreement: 'agreed',
+        change_schools_agreement: 'agreed',
+        enrolment_dismissal_agreement: 'agreed',
+        parent_direction_agreement: 'agreed',
+        read_agreement: 'agreed',
+        father_signature: req.body.father_signature,
+        father_sign_date: req.body.father_sign_date,
+        mother_signature: req.body.mother_signature,
+        mother_sign_date: req.body.mother_sign_date,
+        HSLDA_membership_id: req.body.HSLDA_membership_id,
+        HSLDA_membership_expires: req.body.HSLDA_membership_expires
+      }}
+    );
+  } catch(err){
+    console.log(err);
+  }
+}
 
 async function updateData(id, req) {
   try {
