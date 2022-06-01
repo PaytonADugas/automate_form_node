@@ -131,7 +131,6 @@ function ensureAuthenticated(req, res, next) {
 ////////////////////////////////// Passport //////////////////////////////////
 
 router.get('/', function(req, res, next) {
-  console.log('this is the index');
   res.render('index');
 });
 
