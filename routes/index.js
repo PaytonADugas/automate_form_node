@@ -154,6 +154,7 @@ router.get('/selectStudent', function(req, res, next) {
       result.forEach(s => {if(s.owner == req.user.user_id)
         {current_user_students.push(s)}});
     }
+    console.log(current_user_students);
     var sorted_students = sort_students(req.session.sort, current_user_students);
     res.render('studentsToUpdate', { students: current_user_students, user: username });
   });
@@ -188,15 +189,17 @@ router.get('/form', function(req, res, next) {
 });
 
 router.post('/form', function(req, res, next){
-  saveStudent(req);
+  var student = saveStudent(req);
 
-  if(req.body.refil == 'yes')
-    res.render('thankyou', { user: req.user || '' });
-  else
+  console.log(req.body.refill);
+
+  if(req.body.refill == 'yes')
     res.render('form', { last_student: student });
+  else
+    res.render('thankyou', { user: req.user || '' });
 });
 
-function saveStudent(){
+function saveStudent(req){
   var id = '000';
   var owner_id = 'no owner';
   var owner_name = 'no owner';
@@ -282,6 +285,8 @@ function saveStudent(){
     sendEmail('s', req.body.first_name, req.body.last_name, student._id);
     if (err) return handleError(err);
   });
+
+  return student;
 }
 
 router.get('/submitted', function(req, res, next){
