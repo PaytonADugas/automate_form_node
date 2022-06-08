@@ -188,15 +188,17 @@ router.get('/form', function(req, res, next) {
 });
 
 router.post('/form', function(req, res, next){
-  saveStudent(req);
+  var student = saveStudent(req);
+
+  console.log(req.body.refil);
 
   if(req.body.refil == 'yes')
-    res.render('thankyou', { user: req.user || '' });
-  else
     res.render('form', { last_student: student });
+  else
+    res.render('thankyou', { user: req.user || '' });
 });
 
-function saveStudent(){
+function saveStudent(req){
   var id = '000';
   var owner_id = 'no owner';
   var owner_name = 'no owner';
@@ -282,6 +284,8 @@ function saveStudent(){
     sendEmail('s', req.body.first_name, req.body.last_name, student._id);
     if (err) return handleError(err);
   });
+
+  return student;
 }
 
 router.get('/submitted', function(req, res, next){
