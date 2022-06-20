@@ -52,7 +52,7 @@
   </head>
   <body>
     <div style='padding-top: 50px' class="container">
-      <a class='submitted' href='submitted'>Back</a>
+      <a class='submitted' href='students'>Back</a>
       <div class="jumbotron">
         <div id="pdf_content">
           <table>
@@ -176,7 +176,7 @@
         <div class="text-center">
           <button style='float: left; margin-left: 150px' id='pdf_button' onclick="downloadPDF()" class="btn btn-primary">Save as PDF</button>
           <button style='float: right; margin: 0px 150px 0px 5px' id='open_modal' onclick="" class="btn btn-primary btn-primary">Delete</button>
-          <a style='float: right' href='student_edit?id=<%= student_id %>'><button class="btn btn-primary" type="button">Edit</button></a>
+          <a style='float: right' href='editStudent?id=<%= student_id %>'><button class="btn btn-primary" type="button">Edit</button></a>
         </div>
       </div>
     </div>
@@ -201,7 +201,7 @@
     var father_employment = <%- JSON.stringify(student.father_employment) %>;
     var mother_name = <%- JSON.stringify(student.mother_name) %>;
     var mother_employment = <%- JSON.stringify(student.mother_employment) %>;
-    var family_address = <%- JSON.stringify(student.family_address) %>+', '+<%- JSON.stringify(student.family_city) %>+', '+<%- JSON.stringify(student.family_state) %>+', '+<%- JSON.stringify(student.family_zip) %>
+    var family_address = <%- JSON.stringify(student.family_address) %>+', '+<%- JSON.stringify(student.family_city) %>+', '+<%- JSON.stringify(student.family_state) %>+', '+<%- JSON.stringify(student.family_zip) %>;
     var family_city = <%- JSON.stringify(student.family_city) %>;
     var family_state = <%- JSON.stringify(student.family_state) %>;
     var family_zip = <%- JSON.stringify(student.family_zip) %>;

@@ -13,7 +13,7 @@ var ObjectId = Schema.ObjectId;
 
 var UserModelSchema = new Schema({
   username: String,
-  provider: String,
+  email: String,
   first_name: String,
   last_name: String,
   user_id: String,
