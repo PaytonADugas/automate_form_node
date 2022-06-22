@@ -5,6 +5,8 @@ var router = express.Router();
 var site = require('./site');
 var student = require('./student');
 var form = require('./form');
+var auth = require('./auth')
+var sheets = require('./sheets');
 
 // DATABASE Connection
 //Import the mongoose module
@@ -111,6 +113,11 @@ router.get('/', site.index);
 router.get('/home', site.home);
 router.get('/thankyou', site.thankyou);
 
+// router.get('/register', auth.register);
+// router.post('/register', auth.sendUser);
+// router.get('/login', auth.login);
+// router.post('/login', auth.loadUser);
+
 router.get('/reregisterStudents', ensureAuthenticated, student.students_to_regegister);
 router.get('/reregisterStudent', ensureAuthenticated, student.selectStudent);
 router.post('/reregisterStudent', ensureAuthenticated, student.updateStudent);
@@ -123,6 +130,10 @@ router.post('/editStudent', ensureAuthenticated, student.commit);
 
 router.get('/registerNewStudent', form.fill);
 router.post('/registerNewStudent', form.save);
+
+router.get('/sheets', (req, res, next) => {
+  res.render('sheets');
+});
 
 
 module.exports = router;

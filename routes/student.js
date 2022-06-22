@@ -29,8 +29,7 @@ exports.students_to_regegister = function(req, res, next) {
       result.forEach(s => {if(s.owner == req.user.user_id)
         {current_user_students.push(s)}});
     }
-    console.log(current_user_students);
-    res.render('students_to_reregister', { students: current_user_students, user: username });
+     res.render('students_to_reregister', { students: current_user_students, user: username });
   });
 };
  
@@ -91,8 +90,9 @@ exports.select = function(req, res, next){
   db.collection("students").find().toArray(function(err, result) {
     if (err) throw err;
     for(let i = 0; i < result.length; i++){
-      if(result[i]._id == id)
+      if(result[i]._id == id){
         res.render('student', { student: result[i], student_id: id});
+      }
     }
   });
 };
@@ -236,8 +236,8 @@ async function updateData(id, req) {
   db.collection("students").find().toArray(function(err, result) {
     if (err) throw err;
     for(let i = 0; i < result.length; i++){
-      if(result[i]._id == id)
-        sendEmail('u',result[i].first_name, result[i].last_name, id)
+      if(result[i]._id == id){}
+        // sendEmail('u',result[i].first_name, result[i].last_name, id)
     }
   });
 }

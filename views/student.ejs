@@ -1,348 +1,571 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Student</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="stylesheets/modal.css">
-    <style>
+<head>
+  <meta charset="ut-8">
+  <title>Student</title>
 
-      td{
-        border: 2px solid;
-        padding-right: 40px;
-      }
-      thead {
-        background-color: #2e80ba;
-      }
-      th{
-        border: 2px solid;
-        text-align: center;
-        padding: 10px;
-      }
-      table{
-        table-layout: fixed;
-        width: 800px;
-        margin: auto;
-      }
-      .noRightBorder{
-        border-right: 0px;
-      }
-      .noLeftBorder{
-        border-left: 0px;
-      }
-      .head_color{
-        background-color: #5dbe9d;
-      }
-      h1{
-        text-align: center;
-        margin-bottom: 30px;
-      }
-      p{
-        font-weight: bold;
-      }
-      .add_breaks{
-        white-space: pre-line;
-      }
-      .submitted{
-        font-size: 14px;
-      }
-    </style>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha38-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="stylesheets/modal.css">
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/student.css' />
+  <style>
+    td {
+      border: 2px solid;
+      paddin-right: 40px;
+    }
 
-  </head>
-  <body>
-    <div style='padding-top: 50px' class="container">
-      <a class='submitted' href='students'>Back</a>
-      <div class="jumbotron">
-        <div id="pdf_content">
-          <table>
-            <thead style='font-size:20px'>
-              <th class='noRightBorder head_color'>NORTH COUNTY CHRISTIAN SCHOOL</th>
-              <th class='noLeftBorder head_color'><%= student.school_year %></th>
-            </thead>
-            <thead>
-              <th>STUDENT INFORMATION</th>
-              <th>FAMILY INFORMATION</th>
-            </thead>
-            <tr>
-              <td>
-                <ul style="list-style-type:none">
-                  <li><b>Student ID:</b> <%=student.student_id%></li>
-                  <br>
-                  <li><b>Name:</b> <%=student.first_name%> <%=student.last_name%></li>
-                  <li><b>Username:</b> <%=student.username%></li>
-                  <li><b>Password:</b> <%=student.password%></li>
-                  <li><b>Birth Date:</b> <%=student.birth_date%></li>
-                  <li><b>Age:</b> <%=student.age%></li>
-                  <li><b>Gender:</b> <%=student.gender%></li>
-                  <li><b>Disability:</b> <%=student.disabilities%></li>
-                  <li><b>Grade:</b> <%=student.grade%></li>
-                  <li><b>Previous School:</b> <%=student.previous_school%>, <%=student.previous_school_mailing_address%>, <%=student.previous_school_city%>, <%=student.previous_school_state%>, <%=student.previous_school_zip%></li>
-              </td>
-              <td>
-                <ul style="list-style-type:none">
-                  <li><b>Father's Name:</b> <%=student.father_name%></li>
-                  <li><b>Father's Employment:</b> <%=student.father_employment%></li>
-                  <li><b>Mother's Name:</b> <%=student.mother_name%></li>
-                  <li><b>Mother's Employment:</b> <%=student.mother_employment%></li>
-                  <li><b>Address:</b> <%=student.family_address%>, <%=student.family_city%>, <%=student.family_state%>, <%=student.family_zip%></li>
-                  <li><b>Phone:</b> <%=student.family_phone%></li>
-                  <li><b>Email:</b> <%=student.family_email%></li>
-                  <li><b>Student Currently Living:</b> <%=student.student_living_with%></li>
-                  <li><b>Student's Legal Guardian:</b> <%=student.student_guardian%></li>
-                  <li><b>Church:</b> <%=student.family_church%></li>
-                </ul>
-              </td>
-            </tr>
+    thead {
+      backgroun-color: #2e80ba;
+    }
 
-            <thead>
-              <th>PARENTAL RESPONSIBILITY AGREEMENT</th>
-              <th>HSLDA Information</th>
-            </thead>
-            <tr>
-              <td>
-                <ul style="list-style-type:none">
-                  <li><b>Affirm HSLDA:</b> <%=student.membership_agreement%></li>
-                  <li><b>Affirm Cirriculum:</b> <%=student.curriculum_agreement%></li>
-                  <li><b>Affirm Recordkeeping:</b> <%=student.record_keeping_agreement%></li>
-                  <li><b>Affirm Responsibility:</b> <%=student.parent_participation_agreement%></li>
-                  <li><b>Affirm 180 Days:</b> <%=student.parent_home_agreement%></li>
-                  <li><b>Affirm Attendance:</b> <%=student.attendance_grades_agreement%></li>
-                  <li><b>Affirm Course Details:</b> <%=student.course_of_study_course_description_agreement%></li>
-                  <li><b>Affirm Documentation:</b> <%=student.read_handbook_agreement%></li>
-                  <li><b>Affirm Withdrawal Notification:</b> <%=student.change_schools_agreement%></li>
-                  <li><b>Affirm Dismissal:</b> <%=student.enrolment_dismissal_agreement%></li>
-                  <li><b>Affirm Parental Responsibiltity:</b> <%=student.parent_direction_agreement%></li>
-                  <li><b>Father's Signature:</b> <%=student.father_signature%><br><%=student.father_sign_date%></li>
-                  <li><b>Mother's Signature:</b> <%=student.mother_signature%><br><%=student.mother_sign_date%></li>
-                </ul>
-              </td>
-              <td>
-                <ul style="list-style-type:none">
-                  <li><b>HSLDA Member:</b> <%=student.HSLDA_membership%></li>
-                  <li><b>HSLDA Membership ID:</b> <%=student.HSLDA_membership_id%></li>
-                  <li><b>HSLDA Membership Expires:</b> <%=student.HSLDA_membership_expires%></li>
-                  <hr>
-                  <li class='add_breaks'><b>Notes:</b> <br><%=student.notes%></li>
-                </ul>
-              </td>
-            </tr>
+    th {
+      border: 2px solid;
+      tex-align: center;
+      padding: 10px;
+    }
 
-            <thead>
-              <th>FACULTY INFORMATION</th>
-              <th>RECIEVED INFORMATION</th>
-            </thead>
-            <tr>
-              <td>
-                <ul style="list-style-type:none">
-                  <li><b>Primary Teacher:</b> <%=student.primary_teacher%></li>
-                  <li><b>Highschool Eduication:</b> <%=student.high_school_eduication%></li>
-                  <li><b>Highschool Attended:</b><%=student.high_school_attended%></li>
-                  <li><b>College Eduication:</b> <%=student.college_eduication%></li>
-                  <li><b>College Attended:</b><%=student.college_attended%></li>
-                  <li><b>College Degree:</b><%=student.college_degree%></li>
-                  <li class='add_breaks'><b>Teaching Experience:</b><br><%=student.list_training%></li>
-                </ul>
-              </td>
-              <td>
-                <ul style="list-style-type:none">
-                  <li><b>Date Recieved:</b> <%=student.dateRecieved%></li>
-                  <li class='add_breaks'><b>Fees Recieved:</b> <br> <%=student.feesRecieved%></li>
-                  <li class='add_breaks'><b>Letters Sent:</b> <br> <%=student.lettersSent%></li>
-                  <li><b>Tdap:</b> <%=student.tdap%></li>
-                </ul>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <br>
+    table {
+      tabl-layout: fixed;
+      width: 800px;
+      margin: auto;
+    }
 
-        <!-- Confirm pop up window -->
-        <div id="myModal" class="modal">
-          <div class="modal-content">
-            <form method="post">
-              <h1>Drop Student</h1>
-              <hr>
-              <p>To drop the student copy and paste the ID: <b><%= student._id %></b>, to confirm.</p>
-              <input id='confirm_name' type="text" name="confirm_name" class="form-control" placeholder="Enter student id">
-              <br>
-              <button style='float: right; margin-left: 5px' id='drop_student' type="submit" name="drop_student" value='submit' class="btn btn-danger" disabled>Drop</button>
-              <button style='float: right' id='cancel_modal' type="button" name="cancel" class="btn btn-secondary">Cancel</button>
-            </form>
+    .noRightBorder {
+      borde-right: 0px;
+    }
+
+    .noLeftBorder {
+      borde-left: 0px;
+    }
+
+    .head_color {
+      backgroun-color: #5dbe9d;
+    }
+
+    h1 {
+      tex-align: center;
+      margi-bottom: 30px;
+    }
+
+    p {
+      fon-weight: bold;
+    }
+
+    .add_breaks {
+      white-space: pre-line;
+    }
+
+    .submitted {
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <a class='submitted' href='students'>Back</a>
+  <form method="post">
+    <div class="container-fluid">
+      <h6 class="banner">STUDENT INFORMATION</h6>
+      <!-- columns -->
+      <div class="row">
+        <div class="cols center">
+          <div class="f">
+            <label class='label'>Student ID:</label>
+            <input type="text" id="student_id" name="student_id" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Name:</label>
+            <input type="text" id="name" name="name" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Username:</label>
+            <input type="text" id="username"name="username" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Password:</label>
+            <input type="text" id="password"name="password" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Birth Date:</label>
+            <input type="text" id="birth_date"name="birth_date" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Age:</label>
+            <input type="text" id="age"name="age" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Gender:</label>
+            <input type="text" id="gender"name="gender" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Disability:</label>
+            <input type="text" id="disabilities"name="disabilities" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Grade</label>
+            <select id="grade" name="grade" class="form-control" required readonly>
+            </select>
+          </div>
+          <div class="f">
+            <label class='label'>Previous School:</label>
+            <input type="text" id="previous_school" name="previous_school" class="form-control" required readonly>
           </div>
         </div>
-        <!-- Confirm pop up window -->
-        
-        <div class="text-center">
-          <button style='float: left; margin-left: 150px' id='pdf_button' onclick="downloadPDF()" class="btn btn-primary">Save as PDF</button>
-          <button style='float: right; margin: 0px 150px 0px 5px' id='open_modal' onclick="" class="btn btn-primary btn-primary">Delete</button>
-          <a style='float: right' href='editStudent?id=<%= student_id %>'><button class="btn btn-primary" type="button">Edit</button></a>
+      </div>
+      <h6 class="banner">FAMILY INFORMATION</h6>
+      <!-- columns -->
+      <div class="row">
+        <div class="cols center">
+          <div class="f">
+            <label class='label'>Father's Name:</label>
+            <input type="text" id="father_name" name="father_name" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Father's Employment:</label>
+            <input type="text" id="father_employment" name="father_employment" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Mother's Name:</label>
+            <input type="text" id="mother_name" name="mother_employment" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Mother's Employment:</label>
+            <input type="text" id="mother_employment" name="mother_employment" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Address:</label>
+            <input type="text" id="family_address" name="family_address" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>City:</label>
+            <input type="text" id="family_city" name="family_address" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>State:</label>
+            <input type="text" id="family_state" name="family_address" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Zip Code:</label>
+            <input type="text" id="family_zip" name="family_address" class="form-control" required readonly>
+          </div>
+      
+          <div class="f">
+            <label class='label'>Phone:</label>
+            <input type="text" id="family_phone" name="family_phone" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Email:</label>
+            <input type="text" id="family_email" name="family_email" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Student Living With:</label>
+            <input type="text" id="student_living_with" name="student_living_with" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Student's Legal Guardian:</label>
+            <input type="text" id="student_guardian" name="student_guardian" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Church:</label>
+            <input type="text" id="family_church" name="family_church" class="form-control" required readonly>
+          </div>
+        </div>
+      </div>
+      <h6 class="banner">PARENT RESPONSIBILIY AGREEMENT</h6>
+      <!-- columns -->
+      <div class="row">
+        <div class="cols center">
+          <div class="f">
+            <label class='label'>Affirm HSLDA:</label>
+            <input type="text" id="affirm" class="form-control" required readonly value="affirmed">
+          </div>
+          <div class="f">
+            <label class='label'>Affirm Cirriculum:</label>
+            <input type="text" id="affirm" class="form-control" required readonly value="affirmed">
+          </div>
+          <div class="f">
+            <label class='label'>Affirm Recordkeeping:</label>
+            <input type="text" id="affirm" class="form-control" required readonly value="affirmed">
+          </div>
+          <div class="f">
+            <label class='label'>Affirm Responsibility:</label>
+            <input type="text" id="affirm" class="form-control" required readonly value="affirmed">
+          </div>
+          <div class="f">
+            <label class='label'>Affirm 180 Days:</label>
+            <input type="text" id="affirm" name="" class="form-control" required readonly value="affirmed">
+          </div>
+          <div class="f">
+            <label class='label'>Affirm Attendance:</label>
+            <input type="text" id="affirm" name="" class="form-control" required readonly value="affirmed">
+          </div>
+          <div class="f">
+            <label class='label'>Affirm Course Details:</label>
+            <input type="text" id="affirm" name="" name="" class="form-control" required readonly value="affirmed">
+          </div>
+          <div class="f">
+            <label class='label'>Affirm Documentation:</label>
+            <input type="text" id="affirm" name="" name="" class="form-control" required readonly value="affirmed">
+          </div>
+          <div class="f">
+            <label class='label small'>Affirm Withdrawal Notification:</label>
+            <input type="text" id="affirm" name="" name="" class="form-control" required readonly value="affirmed">
+          </div>
+          <div class="f">
+            <label class='label'>Affirm Dismissal:</label>
+            <input type="text" id="affirm" name="" name="" class="form-control" required readonly value="affirmed">
+          </div>
+          <div class="f">
+            <label class='label small'>Affirm Parental Responsibility:</label>
+            <input type="text" id="affirm" name="" name="" class="form-control" required readonly value="affirmed">
+          </div>
+          <div class="f">
+            <label class='label'>Father's Signature:</label>
+            <input type="text" id="father_signature" name="" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Father's Sigh Date:</label>
+            <input type="text" id="father_sign_date" name="" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Mother's Signature:</label>
+            <input type="text" id="mother_signature" name="" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Mother's Sign Date:</label>
+            <input type="text" id="mother_sign_date" name="" class="form-control" required readonly>
+          </div>
+        </div>
+      </div>
+      <h6 class="banner">HSLDA INFORMATION</h6>
+      <!-- columns -->
+      <div class="row">
+        <div class="cols center">
+          <div class="f">
+            <label class='label'>HSLDA Member:</label>
+            <input type="text" id="HSLDA_membership" name="HSLDA_membership" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>HSLDA Membership ID:</label>
+            <input type="text" id="HSLDA_membership_id" name="HSLDA_membership_id" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>HSLDA Membership Expires:</label>
+            <input type="text" id="HSLDA_membership_expires" name="HSLDA_membership_expires" class="form-control" required readonly
+            >
+          </div>
+          <div class="f">
+            <label class='label'>Notes:</label>
+            <textarea type="text" id="notes" name="notes" class="form-control" required readonly><%=student.notes%></textarea>
+          </div>
+        </div>
+      </div>
+      <h6 class="banner">FACULTY INFORMATION</h6>
+      <!-- columns -->
+      <div class="row">
+        <div class="cols center">
+          <div class="f">
+            <label class='label'>Primary Teacher:</label>
+            <input type="text" id="primary_teacher" name="primary_teacher" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Highschool Eduication:</label>
+            <input type="text" id="high_school_eduication" name="high_school_eduication" class="form-control" required readonly
+            >
+          </div>
+          <div class="f">
+            <label class='label'>Highschool Attended:</label>
+            <input type="text" id="high_school_attended" name="high_school_attended" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>College Eduication:</label>
+            <input type="text" id="college_eduication" name="college_eduication" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>College Attended:</label>
+            <input type="text" id="college_attended" name="college_attended" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>College Degree:</label>
+            <input type="text" id="college_degree" name="college_degree" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Teaching Experience:</label>
+            <textarea type="text" id="list_training" name="list_training" class="form-control" required readonly><%=student.list_training%></textarea>
+          </div>
+        </div>
+      </div>
+      <h6 class="banner">RECIEVED INFORMATION</h6>
+      <!-- columns -->
+      <div class="row">
+        <div class="cols center">
+          <div class="f">
+            <label class='label'>Date Recieved:</label>
+            <input type="text" id="date_recieved" name="date_recieved" class="form-control" required readonly>
+          </div>
+          <div class="f">
+            <label class='label'>Fees Received:</label>
+            <textarea type="text" id="fees_recieved" name="fees_recieved" class="form-control" required readonly><%=student.feesRecieved%></textarea>
+          </div>
+          <div class="f">
+            <label class='label'>Letters Sent:</label>
+            <textarea type="text" id="letters_sent" name="letters_sent" class="form-control" required readonly><%=student.lettersSent%></textarea>
+          </div>
+          <div class="f">
+            <label class='label'>Tdap:</label>
+            <input type="text" id="tdap" name="tdap" class="form-control" required readonly>
+          </div>
         </div>
       </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="downloads/pdfform.minipdf.dist.js"></script>
-    <script>
+  </form>
 
-    // STUDENT INFORMATION
-    var student_id = <%- JSON.stringify(student.student_id) %>;
-    var first_name = <%- JSON.stringify(student.first_name) %>;
-    var last_name = <%- JSON.stringify(student.last_name) %>;
-    var birth_date = <%- JSON.stringify(student.birth_date) %>;
-    var age = <%- JSON.stringify(student.age) %>;
-    var grade = <%- JSON.stringify(student.grade) %>;
-    var gender = <%- JSON.stringify(student.gender) %>;
-    var disabilities = <%- JSON.stringify(student.disabilities) %>;
-    var school_year = <%- JSON.stringify(student.school_year) %>;
+  <!-- Confirm pop up window -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <form method="post">
+        <h1>Drop Student</h1>
+        <hr>
+        <p>To drop the student copy and paste the ID: <b><%= student._id %></b>, to confirm.</p>
+        <input id='confirm_name' type="text" name="confirm_name" class="form-control" placeholder="Enter student id">
+        <br>
+        <button style='float: right; margin-left: 5px' id='drop_student' type="submit" name="drop_student" value='submit' class="btn btn-danger" disabled>Drop</button>
+        <button style='float: right' id='cancel_modal' type="button" name="cancel" class="btn btn-secondary">Cancel</button>
+      </form>
+    </div>
+  </div>
+  <!-- Confirm pop up window -->
+  
+  <div class="text-center">
+    <button style='float: left; margin-left: 150px' id='pdf_button' onclick="downloadPDF()" class="btn btn-primary">Save as PDF</button>
+    <button style='float: right; margin: 0px 150px 0px 5px' id='open_modal' onclick="" class="btn btn-primary btn-primary">Delete</button>
+    <a style='float: right' href='editStudent?id=<%= student_id %>'><button class="btn btn-primary" type="button">Edit</button></a>
+  </div>
+</div>
+          
+          
+          
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+<script>
 
 
-    // FAMILY INFORMATION
-    var father_name = <%- JSON.stringify(student.father_name) %>;
-    var father_employment = <%- JSON.stringify(student.father_employment) %>;
-    var mother_name = <%- JSON.stringify(student.mother_name) %>;
-    var mother_employment = <%- JSON.stringify(student.mother_employment) %>;
-    var family_address = <%- JSON.stringify(student.family_address) %>+', '+<%- JSON.stringify(student.family_city) %>+', '+<%- JSON.stringify(student.family_state) %>+', '+<%- JSON.stringify(student.family_zip) %>;
-    var family_city = <%- JSON.stringify(student.family_city) %>;
-    var family_state = <%- JSON.stringify(student.family_state) %>;
-    var family_zip = <%- JSON.stringify(student.family_zip) %>;
-    var family_phone = <%- JSON.stringify(student.family_phone) %>;
-    var family_email = <%- JSON.stringify(student.family_email) %>;
-    var student_living_with = <%- JSON.stringify(student.student_living_with) %>;
-    var student_guardian = <%- JSON.stringify(student.student_guardian) %>;
-    var family_church = <%- JSON.stringify(student.family_church) %>;
 
-    // FACULTY INFORMATION
-    var primary_teacher = <%- JSON.stringify(student.primary_teacher) %>;
-    var high_school_eduication = <%- JSON.stringify(student.high_school_eduication) %>;
-    var high_school_attended = <%- JSON.stringify(student.high_school_attended) %>;
-    var college_eduication = <%- JSON.stringify(student.college_eduication) %>;
-    var college_attended = <%- JSON.stringify(student.college_attended) %>;
-    var college_degree = <%- JSON.stringify(student.college_degree) %>;
-    var list_training = <%- JSON.stringify(student.list_training) %>;
+</script>
+<script src="downloads/pdfform.minipdf.dist.js"></script>
+<script>
 
-    // PARENT RESPONSIBILITYMENT AGREEMENT
-    var father_signature = <%- JSON.stringify(student.father_signature) %>;
-    var father_sign_date = <%- JSON.stringify(student.father_sign_date) %>;
-    var mother_signature = <%- JSON.stringify(student.mother_signature) %>;
-    var mother_sign_date = <%- JSON.stringify(student.mother_sign_date) %>;
+  var school_year = <%- JSON.stringify(student.school_year) %>;
+  var first_name = <%- JSON.stringify(student.first_name) %>;
+  var last_name = <%- JSON.stringify(student.last_name) %>;
+  var student_name = first_name + ' ' + last_name;
+  var student_id = <%- JSON.stringify(student.student_id) %>;
+  var username = <%- JSON.stringify(student.username) %>;
+  var password = <%- JSON.stringify(student.password) %>;
+  var birth_date = <%- JSON.stringify(student.birth_date) %>;
+  var gender = <%- JSON.stringify(student.gender) %>;
+  var disabilities = <%- JSON.stringify(student.disabilities) %>;
+  var age = <%- JSON.stringify(student.age) %>;
+  var grade = <%- JSON.stringify(student.grade) %>;
+  var previous_school = <%- JSON.stringify(student.previous_school) %>;
+  document.getElementById('student_id').setAttribute('value', student_id);
+  document.getElementById('username').setAttribute('value', username);
+  document.getElementById('password').setAttribute('value', password);
+  document.getElementById('birth_date').setAttribute('value', birth_date);
+  document.getElementById('gender').setAttribute('value', gender);
+  document.getElementById('disabilities').setAttribute('value', disabilities);
+  document.getElementById('age').setAttribute('value', age);
+  document.getElementById('name').setAttribute('value', student_name);
+  document.getElementById('previous_school').setAttribute('value', previous_school);
+  //document.getElementById('grade').setAttribute('value', grade);
 
-    // ACADEMIC RECORDS
-    var previous_school = <%- JSON.stringify(student.previous_school) %>+', '+<%- JSON.stringify(student.previous_school_mailing_address) %>+', '+<%- JSON.stringify(student.previous_school_city) %>+', '+<%- JSON.stringify(student.previous_school_state) %>+', '+<%- JSON.stringify(student.previous_school_zip) %>;
+  var father_name = <%- JSON.stringify(student.father_name) %>;
+  var father_employment = <%- JSON.stringify(student.father_employment) %>;
+  var mother_name = <%- JSON.stringify(student.mother_name) %>;
+  var mother_employment = <%- JSON.stringify(student.mother_employment) %>;
+  var family_address = <%- JSON.stringify(student.family_address) %>;
+  var family_city = <%- JSON.stringify(student.family_city) %>;
+  var family_state = <%- JSON.stringify(student.family_state) %>;
+  var family_zip = <%- JSON.stringify(student.family_zip) %>;
+  var family_phone = <%- JSON.stringify(student.family_phone) %>;
+  var family_email = <%- JSON.stringify(student.family_email) %>;
+  var student_living_with = <%- JSON.stringify(student.student_living_with) %>;
+  var student_guardian = <%- JSON.stringify(student.student_guardian) %>;
+  var family_church = <%- JSON.stringify(student.family_church) %>;
+  document.getElementById('father_name').setAttribute('value', father_name);
+  document.getElementById('father_employment').setAttribute('value', father_employment);
+  document.getElementById('mother_name').setAttribute('value', mother_name);
+  document.getElementById('mother_employment').setAttribute('value', mother_employment);
+  document.getElementById('family_address').setAttribute('value', family_address);
+  document.getElementById('family_city').setAttribute('value', family_city);
+  document.getElementById('family_state').setAttribute('value', family_state);
+  document.getElementById('family_zip').setAttribute('value', family_zip);
+  document.getElementById('family_phone').setAttribute('value', family_phone);
+  document.getElementById('family_email').setAttribute('value', family_email);
+  document.getElementById('student_living_with').setAttribute('value', student_living_with);
+  document.getElementById('student_guardian').setAttribute('value', student_guardian);
+  document.getElementById('family_church').setAttribute('value', family_church);
 
-    // HSLDA INFORMATION
-    var HSLDA_membership = <%- JSON.stringify(student.HSLDA_membership) %>;
-    var HSLDA_membership_id = <%- JSON.stringify(student.HSLDA_membership_id) %>;
-    var HSLDA_membership_expires = <%- JSON.stringify(student.HSLDA_membership_expires) %>;
+  var father_signature = <%- JSON.stringify(student.father_signature) %>;
+  var father_sign_date = <%- JSON.stringify(student.father_sign_date) %>;
+  var mother_signature = <%- JSON.stringify(student.mother_signature) %>;
+  var mother_sign_date = <%- JSON.stringify(student.mother_sign_date) %>;
+  document.getElementById('father_signature').setAttribute('value', father_signature);
+  document.getElementById('father_sign_date').setAttribute('value', father_sign_date);
+  document.getElementById('mother_signature').setAttribute('value', mother_signature);
+  document.getElementById('mother_sign_date').setAttribute('value', mother_sign_date);
+  
+  var primary_teacher = <%- JSON.stringify(student.primary_teacher) %>;
+  var college_eduication = <%- JSON.stringify(student.college_eduication) %>;
+  var high_school_eduication  = <%- JSON.stringify(student.high_school_eduication) %>;
+  var high_school_attended = <%- JSON.stringify(student.high_school_attended) %>;
+  var college_attended = <%- JSON.stringify(student.college_attended) %>;
+  var college_degree = <%- JSON.stringify(student.college_degree) %>;
+  var list_training = <%- JSON.stringify(student.list_training) %>;
+  document.getElementById('primary_teacher').setAttribute('value', primary_teacher);
+  document.getElementById('high_school_attended').setAttribute('value', high_school_attended);
+  document.getElementById('high_school_eduication').setAttribute('value', high_school_eduication);
+  document.getElementById('college_eduication').setAttribute('value', college_eduication);
+  document.getElementById('college_attended').setAttribute('value', college_attended);
+  document.getElementById('college_degree').setAttribute('value', college_degree);
 
-    // OTHER INFORMATION
-    var notes = <%- JSON.stringify(student.notes) %>;
-    var tdap = <%- JSON.stringify(student.tdap) %>;
-    var date_recieved = <%- JSON.stringify(student.dateRecieved) %>;
-    var fees_recieved = <%- JSON.stringify(student.feesRecieved) %>;
-    var letters_sent = <%- JSON.stringify(student.lettersSent) %>;
+  var hslda_m = <%- JSON.stringify(student.HSLDA_membership) %>;
+  var hslda_id = <%- JSON.stringify(student.HSLDA_membership_id) %>;
+  var hslda_m_e = <%- JSON.stringify(student.HSLDA_membership_expires) %>;
+  document.getElementById('HSLDA_membership').setAttribute('value', hslda_m);
+  document.getElementById('HSLDA_membership_id').setAttribute('value', hslda_id);
+  document.getElementById('HSLDA_membership_expires').setAttribute('value', hslda_m_e);
 
-    // POP UP CONFIRMATION
-    var modal = document.getElementById("myModal");
-    var btn = document.getElementById("open_modal");
-    var span = document.getElementById("cancel_modal");
+  var date_recieved = <%- JSON.stringify(student.dateRecieved) %>;
+  var fees_recieved = <%- JSON.stringify(student.feesRecieved) %>;
+  var letters_sent = <%- JSON.stringify(student.lettersSent) %>;
+  var tdap= <%- JSON.stringify(student.tdap) %>;
+  var notes = <%- JSON.stringify(student.notes) %>;
+  document.getElementById('tdap').setAttribute('value', tdap);
+  document.getElementById('date_recieved').setAttribute('value', date_recieved);
 
-    btn.onclick = function() {
-      modal.style.display = "block";
+  var grade = <%- JSON.stringify(student.grade) %>;
+  var grades = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th'];
+
+  function setGrade() {
+    var html = '';
+    var selected = '';
+    for (let i = 0; i < 12; i++) {
+      var grade_i = grades[i];
+      if (grade == grade_i)
+        selected = 'selected';
+      html += `<option value="${grade_i}" ${selected}>${grade_i}</option>`;
+      selected = '';
     }
+    $('#grade').html(html);
+  }
+  setGrade();
 
-    span.onclick = function() {
+  // POP UP CONFIRMATION
+  var modal = document.getElementById("myModal");
+  var btn = document.getElementById("open_modal");
+  var span = document.getElementById("cancel_modal");
+
+  btn.onclick = function () {
+    modal.style.display = "block";
+  }
+
+  span.onclick = function () {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function (event) {
+    if (event.target == modal) {
       modal.style.display = "none";
     }
+  }
 
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
+  $('#confirm_name').on('input', function () {
+    if (document.getElementById('confirm_name').value == <%- JSON.stringify(student._id) %>)
+      document.getElementById('drop_student').disabled = false;
+    else
+      document.getElementById('drop_student').disabled = true;
+  });
 
-    $('#confirm_name').on('input', function(){
-      if(document.getElementById('confirm_name').value == <%- JSON.stringify(student._id) %>)
-        document.getElementById('drop_student').disabled = false;
-      else
-        document.getElementById('drop_student').disabled = true;
-    });
+  const downloadFile = (blob, fileName) => {
+    const link = document.createElement('a');
+    // create a blobURI pointing to our Blob
+    link.href = URL.createObjectURL(blob);
+    link.download = fileName;
+    // some browser needs the anchor to be in the doc
+    document.body.append(link);
+    link.click();
+    link.remove();
+    // in case the Blob uses a lot of memory
+    setTimeout(() => URL.revokeObjectURL(link.href), 7000);
+  };
 
-    const downloadFile = (blob, fileName) => {
-      const link = document.createElement('a');
-      // create a blobURI pointing to our Blob
-      link.href = URL.createObjectURL(blob);
-      link.download = fileName;
-      // some browser needs the anchor to be in the doc
-      document.body.append(link);
-      link.click();
-      link.remove();
-      // in case the Blob uses a lot of memory
-      setTimeout(() => URL.revokeObjectURL(link.href), 7000);
-    };
-
-    function downloadPDF(){
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', 'PDF/Student_data_PDF.pdf', true);
-      xhr.responseType = 'arraybuffer';
-      xhr.onreadystatechange=function() {
-        if (this.readyState == 4 && this.status == 200){
-          var fields = {
-            'school_year': [school_year],
-            'student_name': [first_name+' '+last_name],
-            'student_id': [student_id],
-            'birth_date': [birth_date],
-            'age': [age],
-            'gender': [gender],
-            'disabilities': [disabilities],
-            'grade': [grade],
-            'username': ['some username'],
-            'password': ['**********'],
-            'father_name': [father_name],
-            'father_employment': [father_employment],
-            'mother_name': [mother_name],
-            'mother_employment': [mother_employment],
-            'family_address': [family_address],
-            'international_address': ['N/A'],
-            'family_address': [family_address],
-            'family_phone': [family_phone],
-            'family_cell': [family_phone],
-            'family_email': [family_email],
-            'student_living_with': [student_living_with],
-            'student_guardian': [student_guardian],
-            'family_church': [family_church],
-            'primary_teacher': [primary_teacher],
-            'high_school_eduication': [high_school_eduication],
-            'high_school_attended': [high_school_attended],
-            'college_eduication': [college_eduication],
-            'college_attended': [college_attended],
-            'college_degree': [college_degree],
-            'list_training': [list_training],
-            'father_signature': [father_signature+' '+father_sign_date],
-            'mother_signature': [mother_signature+' '+mother_sign_date],
-            'HSLDA_membership': [HSLDA_membership],
-            'HSLDA_membership_id': [HSLDA_membership_id],
-            'HSLDA_membership_expires': [HSLDA_membership_expires],
-            'notes': [notes],
-            'date_recieved': [date_recieved],
-            'fees_recieved': [fees_recieved],
-            'letters_sent': [letters_sent],
-            'previous_school': [previous_school],
-            'tdap': [tdap],
-          };
-          var filled_pdf; // Uint8Array
-          try {
-            filled_pdf = pdfform().transform(this.response, fields);
-          } catch (err) {
-            return console.log(err);
-          }
-
-          var blob = new Blob([filled_pdf], {type: 'application/pdf'});
-          downloadFile(blob, "myfile.pdf");
-
+  function downloadPDF() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'PDF/Student_data_PDF.pdf', true);
+    xhr.responseType = 'arraybuffer';
+    xhr.onreadystatechange = function () {
+      if (this.readyState = 4 && this.status == 200) {
+        var fields = {
+          'school_year': [school_year],
+          'student_name': [first_name + ' ' + last_name],
+          'student_id': [student_id],
+          'birth_date': [birth_date],
+          'age': [age],
+          'gender': [gender],
+          'disabilities': [disabilities],
+          'grade': [grade],
+          'username': ['some username'],
+          'password': ['**********'],
+          'father_name': [father_name],
+          'father_employment': [father_employment],
+          'mother_name': [mother_name],
+          'mother_employment': [mother_employment],
+          'family_address': [family_address],
+          'international_address': ['N/A'],
+          'family_address': [family_address],
+          'family_phone': [family_phone],
+          'family_cell': [family_phone],
+          'family_email': [family_email],
+          'student_living_with': [student_living_with],
+          'student_guardian': [student_guardian],
+          'family_church': [family_church],
+          'primary_teacher': [primary_teacher],
+          'high_school_eduication': [high_school_eduication],
+          'high_school_attended': [high_school_attended],
+          'college_eduication': [college_eduication],
+          'college_attended': [college_attended],
+          'college_degree': [college_degree],
+          'list_training': [list_training],
+          'father_signature': [father_signature + ' ' + father_sign_date],
+          'mother_signature': [mother_signature + ' ' + mother_sign_date],
+          'HSLDA_membership': [hslda_m],
+          'HSLDA_membership_id': [hslda_id],
+          'HSLDA_membership_expires': [hslda_m_e],
+          'notes': [notes],
+          'date_recieved': [date_recieved],
+          'fees_recieved': [fees_recieved],
+          'letters_sent': [letters_sent],
+          'previous_school': [previous_school],
+          'tdap': [tdap],
+        };
+        var filled_pdf; // Uint8Array
+        try {
+          filled_pdf = pdfform().transform(this.response, fields);
+        } catch (err) {
+          return console.log(err);
         }
+
+        var blob = new Blob([filled_pdf], { type: 'application/pdf' });
+        downloadFile(blob, "myfile.pdf");
+
       }
-      xhr.send();
     }
-    </script>
-  </body>
+    xhr.send();
+  }
+</script>
+</body>
+
 </html>

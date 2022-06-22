@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 //Get the default connection
 var db = mongoose.connection;
 

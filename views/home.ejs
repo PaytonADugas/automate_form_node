@@ -14,13 +14,10 @@
     <a href="/registerNewStudent">Register new Student</a>
     <p style="display:inline"> | </p>
     <a href="/reregisterStudents">Reregister existing Student</a>
-    <% if(role) { %>
       <p style="display:inline"> | </p>
       <a href="/students">View your Students</a>
-    <% } %>
     <a href="/logout" style="float: right">Sign out</a>
     <hr>
-    <h3>Welcome <%= user.username || 'not signed in' %></h3>
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
