@@ -3,7 +3,6 @@ var helper = require('./helper');
 var admin_users = helper.admin_users;
 
 exports.index = function(req, res, next) {
-    console.log('this is the index');
     res.render('index');
 };
 

@@ -6,7 +6,7 @@ var site = require('./site');
 var student = require('./student');
 var form = require('./form');
 var auth = require('./auth')
-var sheets = require('./sheets');
+var sheet = require('./sheets')
 
 // DATABASE Connection
 //Import the mongoose module
@@ -130,10 +130,6 @@ router.post('/editStudent', ensureAuthenticated, student.commit);
 
 router.get('/registerNewStudent', form.fill);
 router.post('/registerNewStudent', form.save);
-
-router.get('/sheets', (req, res, next) => {
-  res.render('sheets');
-});
 
 
 module.exports = router;
